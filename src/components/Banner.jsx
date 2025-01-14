@@ -9,8 +9,7 @@ const Banner = () => {
                 backgroundImage: `url(${bannerImg})`,
             }}
             className="bg-center bg-no-repeat bg-cover bg-blend-overlay bg-opacity-100 max-w-screen-2xl mx-auto text-white hero-overlay">
-            <div className='w-11/12 mx-auto bg-base-100  text-black sticky'><Navbar></Navbar></div>
-            <div className='grid grid-cols-1 md:grid-cols-2 w-11/12 mx-auto items-center py-10'>
+            <div className='grid grid-cols-1 md:grid-cols-2 w-11/12 mx-auto items-center pt-28 pb-10'>
                 <div className="text-center md:text-left">
                     <h2 className="text-3xl md:text-4xl lg:text-6xl font-bold leading-tight">Connecting You to Swift Delivery Solutions</h2>
                     <p className="text-lg lg:text-xl mt-3 mb-10">Efficient parcel booking, management, and tracking for reliable, on-time deliveries.</p>
