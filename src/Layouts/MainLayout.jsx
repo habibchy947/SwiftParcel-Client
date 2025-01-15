@@ -8,9 +8,6 @@ const MainLayout = () => {
     return (
         <div className="font-Lato">
             {/* navbar */}
-            {/* {
-                pathname !== '/' && <Navbar></Navbar>
-            } */}
             {
                 isLogin || <div className="max-w-screen-2xl mx-auto">
                 <Navbar></Navbar>

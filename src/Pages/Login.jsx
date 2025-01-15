@@ -7,12 +7,15 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { useForm } from 'react-hook-form';
 import GoogleSignIn from '@/components/ui/GoogleSignIn';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '@/Hooks/useAuth';
 
 const Login = () => {
     const {signInUser} = useAuth()
-    const { handleSubmit, register, setValue,reset, formState: { errors } } = useForm()
+    const location = useLocation()
+    const from = location.state
+    const navigate = useNavigate()
+    const { handleSubmit, register,reset, formState: { errors } } = useForm()
     
         const onSubmit = async (data) => {
             console.log(data)
@@ -20,6 +23,7 @@ const Login = () => {
             .then(result => {
                 console.log(result.user)
                 reset()
+                navigate(from || '/')
             })
             .catch(err => {
                 console.log(err)

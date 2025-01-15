@@ -24,9 +24,10 @@ const AuthProvider = ({children}) => {
         return signInWithEmailAndPassword(auth,email,password)
     }
     // update user profile
-    const updateUserProfile = (userInfo) => {
-        setLoading(true)
-        return updateProfile(auth.currentUser, userInfo)
+    const updateUserProfile = (name, photo) => {
+        return updateProfile(auth.currentUser, {
+            displayName: name, photoURL: photo
+        })
     }
     // logout
     const logOut = () => {
@@ -36,9 +37,10 @@ const AuthProvider = ({children}) => {
     
     // manage user
     useEffect(()=> {
-        const unSubscribe  = onAuthStateChanged(auth, currentUser => {
+        const unSubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser)
             setLoading(false)
+            console.log(currentUser)
         })
         return () => {
             unSubscribe()
@@ -48,12 +50,12 @@ const AuthProvider = ({children}) => {
     const authInfo = {
         user,
         setUser,
+        updateUserProfile,
         loading,
         setLoading,
         createUser,
         signInUser,
         googleLogin,
-        updateUserProfile,
         logOut
     }
     return (

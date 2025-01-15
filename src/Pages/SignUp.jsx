@@ -1,6 +1,5 @@
 import signUpImg from '../assets/Login/login.png'
 import logo from '../assets/favicon.png'
-import { FcGoogle } from "react-icons/fc";
 import { Input } from '@/components/ui/input';
 import {
     Select,
@@ -15,37 +14,35 @@ import { Button } from '@/components/ui/button';
 import { useForm } from 'react-hook-form';
 import { uploadImage } from '@/lib/utils';
 import GoogleSignIn from '@/components/ui/GoogleSignIn';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '@/Hooks/useAuth';
 
 const SignUp = () => {
-    const {createUser, updateUserProfile} = useAuth()
+    const { createUser, setUser, updateUserProfile } = useAuth()
+    const naviagte = useNavigate()
     const { handleSubmit, register, setValue, reset, formState: { errors } } = useForm()
 
-    const onSubmit = async (data) => {
+    const onSubmit =async (data) => {
         const image = data.photoFile[0]
-            const photo = await uploadImage(image)
-        console.log(data,photo)
+        const photo = await uploadImage(image)
+        console.log(photo)
         await createUser(data.email, data.password)
-        .then(async result => {
-            console.log(result.user)
-            const profileInfo = {
-                displayName: data.name,
-                photoURL: photo
-            }
-            await updateUserProfile (profileInfo)
             .then(result => {
                 console.log(result.user)
-                reset()
+                setUser(result.user)
+                updateUserProfile(data.name, photo)
+                    .then(() => {
+                        reset()
+                        naviagte('/')
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+
             })
             .catch(err => {
                 console.log(err)
             })
-
-        })
-        .catch(err => {
-            console.log(err)
-        })
 
     }
     return (
