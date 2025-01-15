@@ -4,7 +4,7 @@ import logo from '../assets/favicon.png'
 import { Button } from './ui/button';
 const Navbar = () => {
     return (
-        <div className="navbar px-20 mx-auto max-w-screen-2xl py-3 drop-shadow-md fixed border-b-4 border-l-4 border-r-4 bg-white  border-red-600">
+        <div className="navbar px-14 mx-auto max-w-screen-2xl py-3 drop-shadow-md fixed border-b-4 border-l-4 border-r-4 bg-white  border-red-600">
             <div className="flex-1">
                 <Link to='/' className="flex gap-2 font-bebasNeue  text-3xl font-semibold items-center"><img className='w-12' src={logo} alt="" /><span className='tracking-wide'>SwiftParcel</span></Link>
             </div>
@@ -27,7 +27,7 @@ const Navbar = () => {
                         <span className="badge badge-error indicator-item"></span>
                     </div>
                 </button>
-                <Button className='bg-red-600 font-semibold border-none '>Login</Button>
+                <Button className='bg-red-600 font-semibold border-none '><Link to='/login'>Login</Link></Button>
                 {/* <div className="dropdown dropdown-end">
                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">

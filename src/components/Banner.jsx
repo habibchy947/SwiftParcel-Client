@@ -1,7 +1,6 @@
 import Lottie from 'lottie-react';
 import bannerImg from '../assets/Home/swiftParcel-Banner.jpg'
 import bannerLottie from '../assets/Home/bannerLottie.json'
-import Navbar from './Navbar';
 const Banner = () => {
     return (
         <div
