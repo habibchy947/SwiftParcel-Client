@@ -14,6 +14,8 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { useForm } from 'react-hook-form';
 import { uploadImage } from '@/lib/utils';
+import GoogleSignIn from '@/components/ui/GoogleSignIn';
+import { Link } from 'react-router-dom';
 
 const SignUp = () => {
     const { handleSubmit, register, setValue, formState: { errors } } = useForm()
@@ -24,17 +26,18 @@ const SignUp = () => {
         console.log(data,photo)
     }
     return (
-        <div className="md:w-9/12  max-w-screen-xl py-10 mx-auto min-h-screen justify-center grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-2 lg:gap-5 items-center">
+        <div className="w-10/12 md:w-9/12  max-w-screen-xl py-10 mx-auto min-h-screen justify-center grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-2 lg:gap-5 items-center">
             <div>
                 <img className='w-96' src={signUpImg} alt="" />
             </div>
             <div>
-                <div className='max-w-sm mx-auto flex flex-col justify-center items-center mb-1'>
+                <div className='mx-auto flex flex-col justify-center items-center mb-1'>
                     <img className='w-12' src={logo} alt="" />
                     <span className="self-center text-3xl font-bebasNeue font-semibold whitespace-nowrap dark:text-white">SwiftParcel</span>
                     <p className='text-xl font-semibold tracking-wider'>Create your account</p>
-                    <Button className="bg-slate-100 flex items-center text-black text-lg w-full mt-3"><FcGoogle />Sign in with Google</Button>
-                    <div className='divider'></div>
+                    {/* <Button className="bg-slate-100 flex items-center text-black text-lg w-full mt-3"><FcGoogle />Sign Up with Google</Button>
+                    <div className='divider'></div> */}
+                    <GoogleSignIn title='Sign up with Google'></GoogleSignIn>
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)} className="mx-auto">
                     <div className='flex items-center gap-3 mb-3'>
@@ -102,6 +105,7 @@ const SignUp = () => {
                     </div>
                     <Button type="submit" className="w-full bg-red-700">Sign Up</Button>
                 </form>
+                <p className='text-center pt-2'>Already have an account? please <Link className='text-red-700' to='/login'>Login</Link></p>
             </div>
         </div>
     );
