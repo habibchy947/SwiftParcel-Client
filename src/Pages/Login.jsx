@@ -8,12 +8,23 @@ import { Button } from '@/components/ui/button';
 import { useForm } from 'react-hook-form';
 import GoogleSignIn from '@/components/ui/GoogleSignIn';
 import { Link } from 'react-router-dom';
+import useAuth from '@/Hooks/useAuth';
 
 const Login = () => {
-    const { handleSubmit, register, setValue, formState: { errors } } = useForm()
+    const {signInUser} = useAuth()
+    const { handleSubmit, register, setValue,reset, formState: { errors } } = useForm()
     
-        const onSubmit =async (data) => {
+        const onSubmit = async (data) => {
             console.log(data)
+            await signInUser(data.email, data.password)
+            .then(result => {
+                console.log(result.user)
+                reset()
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
         }
     return (
         <div className="w-10/12 md:w-8/12  max-w-screen-xl py-10 mx-auto min-h-screen justify-center grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-2 lg:gap-5 items-center">

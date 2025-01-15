@@ -16,14 +16,37 @@ import { useForm } from 'react-hook-form';
 import { uploadImage } from '@/lib/utils';
 import GoogleSignIn from '@/components/ui/GoogleSignIn';
 import { Link } from 'react-router-dom';
+import useAuth from '@/Hooks/useAuth';
 
 const SignUp = () => {
-    const { handleSubmit, register, setValue, formState: { errors } } = useForm()
+    const {createUser, updateUserProfile} = useAuth()
+    const { handleSubmit, register, setValue, reset, formState: { errors } } = useForm()
 
-    const onSubmit =async (data) => {
+    const onSubmit = async (data) => {
         const image = data.photoFile[0]
             const photo = await uploadImage(image)
         console.log(data,photo)
+        await createUser(data.email, data.password)
+        .then(async result => {
+            console.log(result.user)
+            const profileInfo = {
+                displayName: data.name,
+                photoURL: photo
+            }
+            await updateUserProfile (profileInfo)
+            .then(result => {
+                console.log(result.user)
+                reset()
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
+        })
+        .catch(err => {
+            console.log(err)
+        })
+
     }
     return (
         <div className="w-10/12 md:w-9/12  max-w-screen-xl py-10 mx-auto min-h-screen justify-center grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-2 lg:gap-5 items-center">
