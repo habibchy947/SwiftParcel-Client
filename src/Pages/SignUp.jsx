@@ -18,9 +18,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '@/Hooks/useAuth';
 import toast from 'react-hot-toast';
 import useAxiosPublic from '@/Hooks/useAxiosPublic';
+import { ImSpinner } from "react-icons/im";
 
 const SignUp = () => {
-    const { createUser, setUser, updateUserProfile } = useAuth()
+    const { createUser, setUser, updateUserProfile , loading} = useAuth()
     const naviagte = useNavigate()
     const axiosPublic = useAxiosPublic()
     const { handleSubmit, register, setValue, reset, formState: { errors } } = useForm()
@@ -154,7 +155,7 @@ const SignUp = () => {
                             placeholder="Enter a Password" />
                         {errors.password && <p className='text-red-500 text-xs'>{errors.password.message}</p>}
                     </div>
-                    <Button type="submit" className="w-full bg-red-700">Sign Up</Button>
+                    <Button type="submit" className="w-full bg-red-700">{loading ? <ImSpinner className='animate-spin'/> : 'Sign Up'}</Button>
                 </form>
                 <p className='text-center pt-2'>Already have an account? please <Link className='text-red-700' to='/login'>Login</Link></p>
             </div>

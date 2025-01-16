@@ -2,7 +2,7 @@ import React from 'react';
 import signUpImg from '../assets/Login/login.png'
 import logo from '../assets/favicon.png'
 import { Input } from '@/components/ui/input';
-
+import { ImSpinner } from "react-icons/im";
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { useForm } from 'react-hook-form';
@@ -11,7 +11,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '@/Hooks/useAuth';
 
 const Login = () => {
-    const {signInUser} = useAuth()
+    const {signInUser, loading} = useAuth()
     const location = useLocation()
     const from = location.state
     const navigate = useNavigate()
@@ -69,7 +69,7 @@ const Login = () => {
                             {errors.password && <p className='text-red-500 text-xs'>{errors.password.message}</p>}
                         </div>
                     </div>
-                    <Button type="submit" className="w-full bg-red-700">Login</Button>
+                    <Button type="submit" className="w-full bg-red-700">{loading ? <ImSpinner className='animate-spin'/> : 'Login'}</Button>
                 </form>
                 <p className='text-center pt-2'>New to this website? please <Link className="text-red-700" to='/signUp'>Sign Up</Link></p>
             </div>

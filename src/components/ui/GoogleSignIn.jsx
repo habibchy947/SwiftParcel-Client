@@ -6,15 +6,15 @@ import useAxiosPublic from '@/Hooks/useAxiosPublic';
 import { data, useNavigate } from 'react-router-dom';
 import { Input } from './input';
 import { useForm } from 'react-hook-form';
+import Loading from './Loading';
 
 const GoogleSignIn = ({ title }) => {
     const axiosPublic = useAxiosPublic()
     const [exist, setExist] = useState(null)
     const [isExist, setIsExist] = useState(null)
     const navigate = useNavigate()
-    const { googleLogin } = useAuth()
+    const { googleLogin , loading} = useAuth()
     const { handleSubmit, register, reset, formState: { errors } } = useForm()
-
     const handleGoogle = async () => {
         try {
             const result = await googleLogin()

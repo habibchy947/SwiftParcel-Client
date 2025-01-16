@@ -38,7 +38,7 @@ const Navbar = () => {
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
                                     <Avatar>
-                                            <AvatarImage className="object-cover" referrer-policy="no-referrer" src={user?.photoURL} alt="@shadcn" />
+                                            <AvatarImage className="object-cover" referrer-policy="no-referrer" src={user?.photoURL} alt="user-profile" />
                                         </Avatar>
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent className="w-44 mr-5 md:mr-14">

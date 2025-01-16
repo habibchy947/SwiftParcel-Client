@@ -1,9 +1,7 @@
 import {
     Sidebar,
     SidebarContent,
-    SidebarFooter,
     SidebarHeader,
-    SidebarMenuItem,
     SidebarProvider,
     SidebarTrigger,
 } from "@/components/ui/sidebar"
@@ -15,8 +13,24 @@ import parcel from '../assets/dashboard/package.png'
 import { SiBookstack } from "react-icons/si";
 import { FaRegUser } from "react-icons/fa6";
 import { IoHomeOutline } from "react-icons/io5";
+import { FaListUl } from "react-icons/fa6";
+import { MdOutlineReviews } from "react-icons/md";
+import { FcStatistics } from "react-icons/fc";
+import { TbBrandDeliveroo } from "react-icons/tb";
+import { FaUsers } from "react-icons/fa";
+import { FaPersonBiking } from "react-icons/fa6";
+
+import useRole from "@/Hooks/useRole";
+import useAuth from "@/Hooks/useAuth";
+import Loading from "@/components/ui/Loading";
 const DashboardLayout = () => {
     const [sidebarOpen, setSideBarOpen] = useState(false)
+    const {loading } = useAuth()
+    const [role, isLoading] = useRole()
+
+    if(loading || isLoading) {
+        return <Loading/>
+    }
     return (
         <SidebarProvider className="font-Lato">
             <div className="flex flex-1">
@@ -33,15 +47,27 @@ const DashboardLayout = () => {
                         <div className="divider mb-0"></div>
                         <div className="flex flex-col justify-between h-screen">
                             <div className="space-y-2">
-                                <NavLink to='/dashboard/bookParcel' className="block px-3 py-2  gap-3 rounded-md bg-slate-200"><span className="flex items-center gap-4"><SiBookstack />Book a Parcel</span></NavLink>
-                                <NavLink to="/dashboard/myParcel" className="block px-3 py-2 rounded-md bg-slate-200"><span className="flex items-center gap-4"><img className="w-4" src={parcel} alt="" />My Parcel</span></NavLink>
+                                {role === 'user' && <>
+                                    <NavLink to='/dashboard/bookParcel' className="block px-3 py-2  gap-3 rounded-md bg-slate-200"><span className="flex items-center gap-4"><SiBookstack />Book a Parcel</span></NavLink>
+                                    <NavLink to="/dashboard/myParcel" className="block px-3 py-2 rounded-md bg-slate-200"><span className="flex items-center gap-4"><img className="w-4" src={parcel} alt="" />My Parcel</span></NavLink>
+                                </>}
+                                {role === 'deliveryMen' && <>
+                                    <NavLink to='/dashboard/myDeliveryList' className="block px-3 py-2  gap-3 rounded-md bg-slate-200"><span className="flex items-center gap-4"><FaListUl />My Delivery List</span></NavLink>
+                                    <NavLink to="/dashboard/myReviews" className="block px-3 py-2 rounded-md bg-slate-200"><span className="flex items-center gap-4"><MdOutlineReviews />My Reviews</span></NavLink>
+                                </>}
+                                {role === 'admin' && <>
+                                    <NavLink to='/dashboard/statistics' className="block px-3 py-2  gap-3 rounded-md bg-slate-200"><span className="flex items-center gap-4"><FcStatistics />Statistics</span></NavLink>
+                                    <NavLink to="/dashboard/allParcels" className="block px-3 py-2 rounded-md bg-slate-200"><span className="flex items-center gap-4"><TbBrandDeliveroo/>All Parcels</span></NavLink>
+                                    <NavLink to="/dashboard/allUsers" className="block px-3 py-2 rounded-md bg-slate-200"><span className="flex items-center gap-4"><FaUsers/>All Users</span></NavLink>
+                                    <NavLink to="/dashboard/allDeliveryMen" className="block px-3 py-2 rounded-md bg-slate-200"><span className="flex items-center gap-4"><FaPersonBiking/>All Delivery Men</span></NavLink>
+                                </>}
                             </div>
                             {/* footer */}
-                            <div>
+                            {role === 'user' && <div>
                                 <div className="divider mb-0"></div>
                                 <NavLink to='/dashboard/myProfile' className="bg-slate-200 mb-2 block px-3 py-2 rounded-md"><span className="flex items-center gap-4"><FaRegUser />My Profile</span></NavLink>
                                 <NavLink to='/' className="bg-slate-200 block px-3 py-2 rounded-md"><span className="flex items-center gap-4"><IoHomeOutline />Home</span></NavLink>
-                            </div>
+                            </div>}
                         </div>
 
                     </SidebarContent>
@@ -49,7 +75,7 @@ const DashboardLayout = () => {
                 <div className="flex-1 border-l-2 border-gray-50 shadow-md">
                     <button onClick={() => setSideBarOpen(!sidebarOpen)} className="md:hidden p-1 text-4xl"><GoSidebarExpand className="text-4xl"></GoSidebarExpand></button>
                     <div className=" w-full">
-                    <Outlet></Outlet>
+                        <Outlet></Outlet>
                     </div>
                 </div>
             </div>
