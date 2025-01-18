@@ -1,10 +1,4 @@
-import {
-    Sidebar,
-    SidebarContent,
-    SidebarHeader,
-    SidebarProvider,
-    SidebarTrigger,
-} from "@/components/ui/sidebar"
+
 import { GoSidebarExpand } from "react-icons/go";
 import { useState } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
@@ -25,61 +19,61 @@ import useAuth from "@/Hooks/useAuth";
 import Loading from "@/components/ui/Loading";
 const DashboardLayout = () => {
     const [sidebarOpen, setSideBarOpen] = useState(false)
-    const {loading } = useAuth()
+    const toggleDrawer = () => {
+        setSideBarOpen(!sidebarOpen)
+    }
+    const {user, loading } = useAuth()
     const [role, isLoading] = useRole()
 
-    if(loading || isLoading) {
-        return <Loading/>
+    if (loading || isLoading) {
+        return <Loading />
     }
     return (
-        <SidebarProvider className="font-Lato">
-            <div className="flex flex-1">
-                <Sidebar open={sidebarOpen} onOpenChange={setSideBarOpen} className={`${sidebarOpen ? 'w-64' : 'w-0'} transition-all duration-300 lg:block hidden bg-gray-100 shadow-lg`}>
-                    <div className="flex justify-end">
-                        <SidebarTrigger onClick={() => setSideBarOpen(!sidebarOpen)} className="bg-gray-800 md:hidden text-white p-5">
-                        </SidebarTrigger>
-                    </div>
-                    <SidebarContent className=" text-black w-64 p-5">
-                        {/* header */}
-                        <SidebarHeader className="rounded-md bg-white shadow-md text-black">
-                            <Link to='/' className="flex gap-2 font-bebasNeue  text-3xl font-semibold items-center"><img className='w-12' src={logo} alt="" /><span className='tracking-wide'>SwiftParcel</span></Link>
-                        </SidebarHeader>
+        <div className="">
+            <div aria-label="close-sidebar" onClick={toggleDrawer} className={`fixed inset-0 z-40 bg-black transition-all duration-300 ${sidebarOpen ? 'opacity-50 visible' : 'opacity-0 invisible'}`}>
+            </div>
+            <div className={`fixed  top-0 z-50 left-0 w-68 p-4 h-full text-black shadow-lg bg-gray-50 transform transition-transform duration-300 lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} overflow-y-auto`}>
+                <button onClick={toggleDrawer} className="lg:hidden text-black ">close</button>
+                <div className="rounded-md bg-white shadow-md text-black p-2">
+                    <Link to='/' className="flex gap-2 font-bebasNeue  text-3xl font-semibold items-center"><img className='w-12' src={logo} alt="" /><span className='tracking-wide'>SwiftParcel</span></Link>
+                </div>
+                <div className="divider mb-0"></div>
+                    <div className="space-y-2">
+                        {user && role === 'user' && <>
+                            <NavLink to='/dashboard/bookParcel' className={({ isActive }) => `block px-3 py-2 rounded-md ${isActive && 'bg-slate-200'}`}><span className="flex items-center gap-4"><SiBookstack />Book a Parcel</span></NavLink>
+                            <NavLink to="/dashboard/myParcel" className={({ isActive }) => `block px-3 py-2 rounded-md ${isActive && 'bg-slate-200'}`}><span className="flex items-center gap-4"><img className="w-4" src={parcel} alt="" />My Parcel</span></NavLink>
+                        </>}
+                        {user && role === 'deliveryMen' && <>
+                            <NavLink to='/dashboard/myDeliveryList' className={({ isActive }) => `block px-3 py-2 rounded-md ${isActive && 'bg-slate-200'}`}><span className="flex items-center gap-4"><FaListUl />My Delivery List</span></NavLink>
+                            <NavLink to="/dashboard/myReviews" className={({ isActive }) => `block px-3 py-2 rounded-md ${isActive && 'bg-slate-200'}`}><span className="flex items-center gap-4"><MdOutlineReviews />My Reviews</span></NavLink>
+                        </>}
+                        {user && role === 'admin' && <>
+                            <NavLink to='/dashboard/statistics' className={({ isActive }) => `block px-3 py-2 rounded-md ${isActive && 'bg-slate-200'}`}><span className="flex items-center gap-4"><FcStatistics />Statistics</span></NavLink>
+                            <NavLink to="/dashboard/allParcels" className={({ isActive }) => `block px-3 py-2 rounded-md ${isActive && 'bg-slate-200'}`}><span className="flex items-center gap-4"><TbBrandDeliveroo />All Parcels</span></NavLink>
+                            <NavLink to="/dashboard/allUsers" className={({ isActive }) => `block px-3 py-2 rounded-md ${isActive && 'bg-slate-200'}`}><span className="flex items-center gap-4"><FaUsers />All Users</span></NavLink>
+                            <NavLink to="/dashboard/allDeliveryMen" className={({ isActive }) => `block px-3 py-2 rounded-md ${isActive && 'bg-slate-200'}`}><span className="flex items-center gap-4"><FaPersonBiking />All Delivery Men</span></NavLink>
+                        </>}
+                    {/* footer */}
+                    {user && role === 'user' && <div>
                         <div className="divider mb-0"></div>
-                        <div className="flex flex-col justify-between h-screen">
-                            <div className="space-y-2">
-                                {role === 'user' && <>
-                                    <NavLink to='/dashboard/bookParcel' className="block px-3 py-2  gap-3 rounded-md bg-slate-200"><span className="flex items-center gap-4"><SiBookstack />Book a Parcel</span></NavLink>
-                                    <NavLink to="/dashboard/myParcel" className="block px-3 py-2 rounded-md bg-slate-200"><span className="flex items-center gap-4"><img className="w-4" src={parcel} alt="" />My Parcel</span></NavLink>
-                                </>}
-                                {role === 'deliveryMen' && <>
-                                    <NavLink to='/dashboard/myDeliveryList' className="block px-3 py-2  gap-3 rounded-md bg-slate-200"><span className="flex items-center gap-4"><FaListUl />My Delivery List</span></NavLink>
-                                    <NavLink to="/dashboard/myReviews" className="block px-3 py-2 rounded-md bg-slate-200"><span className="flex items-center gap-4"><MdOutlineReviews />My Reviews</span></NavLink>
-                                </>}
-                                {role === 'admin' && <>
-                                    <NavLink to='/dashboard/statistics' className="block px-3 py-2  gap-3 rounded-md bg-slate-200"><span className="flex items-center gap-4"><FcStatistics />Statistics</span></NavLink>
-                                    <NavLink to="/dashboard/allParcels" className="block px-3 py-2 rounded-md bg-slate-200"><span className="flex items-center gap-4"><TbBrandDeliveroo/>All Parcels</span></NavLink>
-                                    <NavLink to="/dashboard/allUsers" className="block px-3 py-2 rounded-md bg-slate-200"><span className="flex items-center gap-4"><FaUsers/>All Users</span></NavLink>
-                                    <NavLink to="/dashboard/allDeliveryMen" className="block px-3 py-2 rounded-md bg-slate-200"><span className="flex items-center gap-4"><FaPersonBiking/>All Delivery Men</span></NavLink>
-                                </>}
-                            </div>
-                            {/* footer */}
-                            {role === 'user' && <div>
-                                <div className="divider mb-0"></div>
-                                <NavLink to='/dashboard/myProfile' className="bg-slate-200 mb-2 block px-3 py-2 rounded-md"><span className="flex items-center gap-4"><FaRegUser />My Profile</span></NavLink>
-                                <NavLink to='/' className="bg-slate-200 block px-3 py-2 rounded-md"><span className="flex items-center gap-4"><IoHomeOutline />Home</span></NavLink>
-                            </div>}
-                        </div>
-
-                    </SidebarContent>
-                </Sidebar>
-                <div className="flex-1 border-l-2 border-gray-50 shadow-md">
-                    <button onClick={() => setSideBarOpen(!sidebarOpen)} className="md:hidden p-1 text-4xl"><GoSidebarExpand className="text-4xl"></GoSidebarExpand></button>
-                    <div className=" w-full">
+                        <NavLink to='/dashboard/myProfile' className={({ isActive }) => `block px-3 py-2 rounded-md ${isActive && 'bg-slate-200'}`}><span className="flex items-center gap-4"><FaRegUser />My Profile</span></NavLink>
+                        <NavLink to='/' className={({ isActive }) => `block px-3 py-2 rounded-md ${isActive && 'bg-slate-200'}`}><span className="flex items-center gap-4"><IoHomeOutline />Home</span></NavLink>
+                    </div>}
+                    </div>
+            </div>
+            {/* main contsan */}
+            <div className={`flex-1 p-3 transition-transform duration-300 lg:ml-60 ${sidebarOpen ? 'lg:ml-64' : ''}`}>
+                    <button onClick={toggleDrawer}
+                        className="p-2 text-black text-lg rounded-md lg:hidden"
+                    >
+                        <GoSidebarExpand />
+                    </button>
+                    {/* main page content */}
+                    <div className=" lg:mt-0">
                         <Outlet></Outlet>
                     </div>
-                </div>
             </div>
-        </SidebarProvider>
+        </div>
     );
 };
 

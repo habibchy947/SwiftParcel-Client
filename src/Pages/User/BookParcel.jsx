@@ -1,24 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Calendar } from "@/components/ui/calendar"
-import { format } from "date-fns"
-import { cn } from "@/lib/utils"
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/popover"
 
 import useAxiosSecure from "@/Hooks/useAxiosSecure";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { FaCalendar } from "react-icons/fa6";
+import toast from "react-hot-toast";
+import useAuth from "@/Hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import DashboardHeader from "@/components/ui/DashboardHeader";
 
 const BookParcel = () => {
+    const { user } = useAuth()
+    const navigate = useNavigate()
     const { handleSubmit, register, setValue, reset, watch, formState: { errors } } = useForm()
-    // const axiosSecure = useAxiosSecure()
-    const [date, setDate] = useState(null)
+    const axiosSecure = useAxiosSecure()
     const [price, setPrice] = useState(0)
     const weight = watch("weight")
 
@@ -44,12 +40,46 @@ const BookParcel = () => {
     }, [weight, setValue])
 
     const onSubmit = async (data) => {
-        console.log(data)
+        const parcel = {
+            userName: user.displayName,
+            email: user.email,
+            phone: data.userPhone,
+            parcelType: data.parcelType,
+            weight: parseFloat(data.weight),
+            receiverName: data.receiverName,
+            receiverPhone: data.receiverPhone,
+            deliveryAddress: data.deliveryAddress,
+            requestedDeliveryDate: data.deliveryDate,
+            approximateDeliveryDate: 'Not assigned',
+            deliveryMenId: 'Not assigned',
+            bookingDate: new Date(),
+            latitude: parseFloat(data.latitude),
+            longitude: parseFloat(data.longitude),
+            price: parseFloat(data.price),
+            status: 'pending'
+        }
+        console.table(parcel)
+
+        try{
+            const res = await axiosSecure.post('/parcel', parcel)
+            if(res.data.insertedId) {
+                toast.success('Your Parcel booked successfully')
+                console.log(res.data)
+                setPrice(0)
+                reset()
+                navigate('/dashboard/myParcel')
+            }
+        }
+        catch(err) {
+            toast.error('Invalid data')
+        }
+        
+
     }
     return (
-        <div className="py-2 md:py-12 lg:py-20 w-10/12 md:w-9/12 mx-auto">
+        <div className="py-2 md:py-5 w-10/12 md:w-9/12 mx-auto">
             {/* text-content */}
-            <h3 className="text-4xl text-center font-bold">Book a Parcel</h3>
+            <DashboardHeader title='Book Parcel'></DashboardHeader>
             <div className="mt-5">
                 <form onSubmit={handleSubmit(onSubmit)} className="mx-auto">
                     {/* row-1 */}
@@ -57,13 +87,13 @@ const BookParcel = () => {
                         {/* name field */}
                         <div className='w-full mb-2 md:mb-0'>
                             <Label htmlFor="name">Name</Label>
-                            <Input type="text" {...register('userName', { required: 'Name is required' })} id="name" placeholder="Enter your Name" />
+                            <Input defaultValue={user?.displayName} readOnly type="text" {...register('userName', { required: 'Name is required' })} id="name" placeholder="Enter your Name" />
                             {errors.userName && <p className='text-red-500 text-xs'>{errors.userName.message}</p>}
                         </div>
                         {/* email field */}
                         <div className='w-full mb-2 md:mb-0'>
                             <Label htmlFor="email">Email</Label>
-                            <Input type="email"
+                            <Input defaultValue={user?.email} readOnly type="email"
                                 {...register('email', { required: 'Please enter a valid email address' })}
                                 id="email"
                                 placeholder="Enter your Email" />
@@ -102,6 +132,10 @@ const BookParcel = () => {
                                 {...register("weight",
                                     {
                                         required: 'weight is required',
+                                        pattern: {
+                                            value: /^(?!0(\.0+)?$)\d+(\.\d+)?$/,
+                                            message: 'Weight cannot be zero'
+                                        }
                                     })}
                                 id="weight"
                                 placeholder="Enter parcel weight" />
@@ -152,7 +186,7 @@ const BookParcel = () => {
                     <div className='md:flex items-start gap-3 mb-2'>
                         {/* delivery date */}
                         <div className="w-full mb-2 md:mb-0">
-                            <Label htmlFor="address">Delivery date</Label>
+                            <Label htmlFor="date">Requested Delivery date</Label>
                             <Input type="date"
                                 {...register('deliveryDate', {
                                     required: 'deliveryDate  is required',

@@ -69,7 +69,7 @@ const Login = () => {
                             {errors.password && <p className='text-red-500 text-xs'>{errors.password.message}</p>}
                         </div>
                     </div>
-                    <Button type="submit" className="w-full bg-red-700">{loading ? <ImSpinner className='animate-spin'/> : 'Login'}</Button>
+                    <Button type="submit" className="w-full bg-red-700">Login</Button>
                 </form>
                 <p className='text-center pt-2'>New to this website? please <Link className="text-red-700" to='/signUp'>Sign Up</Link></p>
             </div>

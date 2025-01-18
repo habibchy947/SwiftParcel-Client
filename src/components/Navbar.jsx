@@ -18,9 +18,14 @@ import {
 } from "@/components/ui/dropdown-menu"
 import useAuth from '@/Hooks/useAuth';
 import { Avatar, AvatarImage } from './ui/avatar';
+import useRole from '@/Hooks/useRole';
 
 const Navbar = () => {
     const { user , logOut} = useAuth()
+    const [role] = useRole()
+    // if(isLoading) {
+    //     return <Loading></Loading>
+    // }
     return (
         <div className="flex w-full  items-center md:px-14 mx-auto max-w-screen-2xl py-3 drop-shadow-md fixed border-b-4 border-l-4 border-r-4 bg-white  border-red-600">
             <div className="flex-1">
@@ -46,7 +51,9 @@ const Navbar = () => {
                                         <DropdownMenuSeparator />
                                         <DropdownMenuGroup>
                                             <DropdownMenuItem>
-                                                <Link to='/dashboard'>Dashboard</Link>
+                                                {user && role === 'user' && <Link to='/dashboard/myParcel'>Dashboard</Link>}
+                                                {user && role === 'deliveryMen' && <Link to='/dashboard/myDeliveryList'>Dashboard</Link>}
+                                                {user && role === 'admin' && <Link to='/dashboard/statistics'>Dashboard</Link>}
                                                 <DropdownMenuShortcut><MdOutlineDashboard /></DropdownMenuShortcut>
                                             </DropdownMenuItem>
                                             <DropdownMenuItem onClick={logOut}>
