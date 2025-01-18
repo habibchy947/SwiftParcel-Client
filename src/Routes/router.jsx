@@ -12,6 +12,8 @@ import MyProfile from "@/Pages/User/MyProfile";
 import AdminRoute from "./AdminRoute";
 import Statistics from "@/Pages/Admin/Statistics";
 import UpdateParcel from "@/Pages/User/UpdateParcel";
+import CheckOut from "@/Pages/User/CheckOut";
+import PaymentSuccess from "@/Pages/User/PaymentSuccess";
 
 const router = createBrowserRouter([
   {
@@ -71,6 +73,22 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <UpdateParcel></UpdateParcel>
+          </PrivateRoute>
+        )
+      },
+      {
+        path: 'checkout/:id',
+        element: (
+          <PrivateRoute>
+            <CheckOut></CheckOut>
+          </PrivateRoute>
+        )
+      },
+      {
+        path: 'paymentSuccess',
+        element: (
+          <PrivateRoute>
+            <PaymentSuccess></PaymentSuccess>
           </PrivateRoute>
         )
       },
