@@ -13,14 +13,16 @@ const MyParcel = () => {
     const [filter, setFilter] = useState('')
     const { user } = useAuth()
     const axiosSecure = useAxiosSecure()
-    const { data: parcels = [] } = useQuery({
+    const { data: parcels = [], refetch } = useQuery({
         queryKey: ['myParcel', user?.email],
         queryFn: async () => {
-            const { data } = await axiosSecure.get(`/parcel/${user?.email}`)
+            const { data } = await axiosSecure.get(`/myParcel/${user?.email}`)
             return data
         }
     })
     console.log(filter)
+
+    // parcel cancellation
     return (
         <div className='py-2 md:py-5'>
             <DashboardHeader title='My Parcel'></DashboardHeader>
@@ -57,7 +59,7 @@ const MyParcel = () => {
                     </TableHeader>
                     <TableBody>
                         {
-                            parcels.map((parcel, idx) => <TableRowUserParcel key={idx} parcel={parcel}></TableRowUserParcel>)
+                            parcels.map((parcel, idx) => <TableRowUserParcel refetch={refetch} key={idx} parcel={parcel}></TableRowUserParcel>)
                         }
                     </TableBody>
                 </Table>

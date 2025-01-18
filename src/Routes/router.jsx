@@ -11,6 +11,7 @@ import MyParcel from "@/Pages/User/MyParcel";
 import MyProfile from "@/Pages/User/MyProfile";
 import AdminRoute from "./AdminRoute";
 import Statistics from "@/Pages/Admin/Statistics";
+import UpdateParcel from "@/Pages/User/UpdateParcel";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyParcel></MyParcel>
+          </PrivateRoute>
+        )
+      },
+      {
+        path: 'updateParcel/:id',
+        element: (
+          <PrivateRoute>
+            <UpdateParcel></UpdateParcel>
           </PrivateRoute>
         )
       },
