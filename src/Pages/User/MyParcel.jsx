@@ -37,7 +37,7 @@ const MyParcel = () => {
             confirmButtonText: "Continue"
         }).then( async(result) => {
             if (result.isConfirmed) {
-               axiosSecure.patch(`/parcel/cancel/${id}`)
+               axiosSecure.patch(`/parcel/returned/${id}`)
                .then(res => {
                    if (res.data.modifiedCount) {
                        Swal.fire({
@@ -65,7 +65,7 @@ const MyParcel = () => {
                     <SelectContent>
                         <SelectGroup>
                             <SelectItem value="pending">Pending</SelectItem>
-                            <SelectItem value="onTheWay">On the way</SelectItem>
+                            <SelectItem value="on the way">On the way</SelectItem>
                             <SelectItem value="delivered">Delivered</SelectItem>
                             <SelectItem value="returned">Returned</SelectItem>
                             <SelectItem value="cancelled">Cancelled</SelectItem>

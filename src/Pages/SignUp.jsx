@@ -59,7 +59,7 @@ const SignUp = () => {
 
             })
             .catch(err => {
-                toast.error(err)
+                toast.error(err.message || 'An error occured')
             })
 
     }

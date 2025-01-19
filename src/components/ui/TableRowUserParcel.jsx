@@ -25,11 +25,11 @@ const TableRowUserParcel = ({ idx, parcel, handleCancelParcel }) => {
         <TableRow className="" key={idx}>
             <TableCell className="whitespace-nowrap">{parcelType}</TableCell>
             <TableCell className="whitespace-nowrap">{moment(requestedDeliveryDate).format('DD-MM-YYYY')}</TableCell>
-            <TableCell className="whitespace-nowrap">{approximateDeliveryDate === 'Not assigned' ? <p className={`text-center text-yellow-500 bg-yellow-50 py-1 rounded-2xl`}>{approximateDeliveryDate}</p> : moment(bookingDate).format('DD-MM-YYYY')}</TableCell>
+            <TableCell className="whitespace-nowrap text-center">{approximateDeliveryDate === 'Not assigned' ? <p className={`text-center text-yellow-500 bg-yellow-50 py-1 rounded-2xl`}>{approximateDeliveryDate}</p> : moment(bookingDate).format('DD-MM-YYYY')}</TableCell>
             <TableCell className="whitespace-nowrap">{moment(bookingDate).format('DD-MM-YYYY')}</TableCell>
-            <TableCell className="whitespace-nowrap">{deliveryMenId === 'Not assigned' ? <Badge className={`text-center bg-yellow-50 text-yellow-500 py-1 rounded-2xl`}>{deliveryMenId}</Badge> : { deliveryMenId }}</TableCell>
+            <TableCell className="whitespace-nowrap">{deliveryMenId === 'Not assigned' ? <Badge className={`text-center bg-yellow-50 text-yellow-500 py-1 rounded-2xl`}>{deliveryMenId}</Badge> :  deliveryMenId }</TableCell>
             <TableCell className="whitespace-nowrap">
-                 <p className={`text-center ${status === 'cancelled' && 'text-slate-500 bg-slate-50'} ${status === 'pending' && 'text-yellow-500 bg-yellow-50'} ${status === 'onTheWay' && 'text-pink-500 bg-pink-50'} ${status === 'delivered' && 'text-green-500 bg-green-50'} py-1 rounded-2xl`}>{status}</p>
+                 <p className={`text-center ${status === 'cancelled' && 'text-slate-500 bg-slate-50'} ${status === 'pending' && 'text-yellow-500 bg-yellow-50'} ${status === 'on the way' && 'text-pink-500 bg-pink-50'} ${status === 'delivered' && 'text-green-500 bg-green-50'} py-1 rounded-2xl`}>{status}</p>
                  </TableCell>
             <TableCell className="space-x-2 py-1 whitespace-nowrap">
                 {status !== 'pending' ? <button disabled className="px-2  text-center py-1 rounded-sm bg-slate-300 ">Update</button> :

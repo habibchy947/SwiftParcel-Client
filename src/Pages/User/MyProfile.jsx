@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import toast from 'react-hot-toast';
+import Loading from '@/components/ui/Loading';
 
 const MyProfile = () => {
     const { user, updateUserProfile } = useAuth()
@@ -48,6 +49,9 @@ const MyProfile = () => {
 
     }
 
+    if(isLoading){
+        return <Loading></Loading>
+    }
     return (
         <div className='w-11/12 md:w-6/12 mx-auto border rounded-md'>
             <div

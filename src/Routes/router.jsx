@@ -14,6 +14,10 @@ import Statistics from "@/Pages/Admin/Statistics";
 import UpdateParcel from "@/Pages/User/UpdateParcel";
 import CheckOut from "@/Pages/User/CheckOut";
 import PaymentSuccess from "@/Pages/User/PaymentSuccess";
+import DeliveryMenRoute from "./DeliveryMenRoute";
+import MyDeliveryList from "@/Pages/DeliveryMen/MyDeliveryList";
+import AllUsers from "@/Pages/Admin/AllUsers";
+import AllParcels from "@/Pages/Admin/AllParcels";
 
 const router = createBrowserRouter([
   {
@@ -44,12 +48,33 @@ const router = createBrowserRouter([
       {
         path: 'statistics',
         element: (
-          <PrivateRoute>
-            <AdminRoute>
-              <Statistics></Statistics>
-            </AdminRoute>
-          </PrivateRoute>
+          <AdminRoute>
+            <Statistics></Statistics>
+          </AdminRoute>
         )
+      },
+      {
+        path: 'allParcels',
+        element: (
+          <AdminRoute>
+            <AllParcels></AllParcels>
+          </AdminRoute>
+        )
+      },
+      {
+        path: 'allUsers',
+        element: (
+          <AdminRoute>
+            <AllUsers></AllUsers>
+          </AdminRoute>
+        )
+      },
+      // delivery men route
+      {
+        path: 'myDeliveryList',
+        element: <DeliveryMenRoute>
+          <MyDeliveryList></MyDeliveryList>
+        </DeliveryMenRoute>
       },
       // user route
       {
