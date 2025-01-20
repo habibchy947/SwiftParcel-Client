@@ -18,9 +18,13 @@ const TableRowAllParcel = ({ parcel ,refetch, allDeliveryMen}) => {
     const { handleSubmit, register, setValue, reset, formState: { errors } } = useForm()
     const axiosSecure = useAxiosSecure()
     const onSubmit = async (data) => {
-        if(new Date(data.deliveryDate) < new Date()){
+        if(new Date(data.approximateDeliveryDate) < new Date()){
             return toast.error('give a future date')
         }
+        if(new Date(data.approximateDeliveryDate) > new Date(requestedDeliveryDate)){
+            return toast.error('give a date inside the requested deliveryDate')
+        }
+        
         console.log(data)
         try{
             const assigned = {
@@ -73,7 +77,7 @@ const TableRowAllParcel = ({ parcel ,refetch, allDeliveryMen}) => {
                                             <SelectGroup>
                                                 {
                                                     allDeliveryMen ? allDeliveryMen.map((alldeliMen, index)=> (
-                                                        <SelectItem key={index} value={alldeliMen._id}>{alldeliMen.name}</SelectItem>
+                                                        <SelectItem key={index} value={alldeliMen._id}>{alldeliMen.deliveryMenName}</SelectItem>
                                                     ))
                                                     : <SelectItem value="nodeliverymen">Make an user to delivery men</SelectItem>
                                                 }

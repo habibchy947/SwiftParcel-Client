@@ -34,7 +34,7 @@ const SignUp = () => {
                 console.log(result.user)
                 setUser(result.user)
                 updateUserProfile(data.name, photo)
-                    .then(() => {
+                    .then(async() => {
                         const userInfo = {
                             name: data.name,
                             email: data.email,
@@ -43,9 +43,26 @@ const SignUp = () => {
                             userType: data.userType
                         }
                         // save user data in db
-                        axiosPublic.post('/user', userInfo)
-                            .then(res => {
+                       await axiosPublic.post('/user', userInfo)
+                            .then(async(res) => {
                                 if (res.data.insertedId) {
+                                    if(data.userType === 'deliveryMen'){
+                                        const deliverMenInfo = {
+                                            deliveryMenName: data.name,
+                                            deliveryMenEmail:data.email,
+                                            deliveryMenImage:photo,
+                                            deliveryMenPhone:data.phone,
+                                            numberOfParcelsDelivered:0,
+                                            averageReview:0
+                                        }
+                                      await  axiosPublic.post('/deliveryMen', deliverMenInfo)
+                                        .then(res => {
+                                            console.log(res.data)
+                                            if(res.data.insertedId){
+                                                toast.success('deliveryMen saved to database')
+                                            }
+                                        })
+                                    }
                                     console.log('user saved to database')
                                     reset()
                                     toast.success('Account created successfully')

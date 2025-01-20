@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import useAuth from "@/Hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import DashboardHeader from "@/components/ui/DashboardHeader";
+import { useQuery } from "@tanstack/react-query";
 
 const BookParcel = () => {
     const { user } = useAuth()
@@ -18,6 +19,13 @@ const BookParcel = () => {
     const [price, setPrice] = useState(0)
     const weight = watch("weight")
 
+    const { data: users = {}, isLoading, refetch } = useQuery({
+        queryKey: ['usersS', user?.email],
+        queryFn: async () => {
+            const { data } = await axiosSecure.get(`http://localhost:5000/user/${user?.email}`)
+            return data
+        }
+    })
     useEffect(() => {
         if (weight !== undefined && weight !== null) {
 
@@ -43,6 +51,7 @@ const BookParcel = () => {
         const parcel = {
             userName: user.displayName,
             email: user.email,
+            userId: users._id,
             phone: data.userPhone,
             parcelType: data.parcelType,
             weight: parseFloat(data.weight),

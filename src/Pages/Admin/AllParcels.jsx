@@ -39,12 +39,12 @@ const AllParcels = () => {
     const onSubmit = async (data) => {
         const startDate = new Date(data.dateFrom)
         const endDate = new Date(data.dateTo)
-        if (startDate < new Date()) {
-            return toast.error('give a future date')
-        }
-        if (endDate < new Date()) {
-            return toast.error('give a future date')
-        }
+        // if (startDate < new Date()) {
+        //     return toast.error('give a future date')
+        // }
+        // if (endDate < new Date()) {
+        //     return toast.error('give a future date')
+        // }
         if(startDate > endDate){
             return toast.error("start date can't be greater than end date")
         }
@@ -64,8 +64,10 @@ const AllParcels = () => {
             <div className='w-52'>
                 <h2 className='mb-2 font-semibold'>Select Date Range</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className='flex gap-2'>
-                        <Input type="date"
+                    <div className='flex flex-wrap md:flex-nowrap gap-2'>
+                        <Input
+                        className=""
+                         type="date"
                             {...register('dateFrom', {
                                 required: 'dateFrom  is required'
                             })}
