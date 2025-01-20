@@ -62,8 +62,8 @@ const BookParcel = () => {
             approximateDeliveryDate: 'Not assigned',
             deliveryMenId: 'Not assigned',
             bookingDate: new Date(),
-            latitude: parseFloat(data.latitude),
-            longitude: parseFloat(data.longitude),
+            latitude: data.latitude,
+            longitude: data.longitude,
             price: parseFloat(data.price),
             status: 'pending'
         }
@@ -208,12 +208,9 @@ const BookParcel = () => {
                         {/* address latitude */}
                         <div className='w-full mb-2 md:mb-0'>
                             <Label htmlFor="latitude">Delivery Address Latitude</Label>
-                            <Input type="number" {...register('latitude', {
+                            <Input type="text" {...register('latitude', {
                                 required: 'Delivery address latitude is required',
-                                pattern: {
-                                    value: /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$/,
-                                    message: 'invalid Latitude'
-                                }
+                                
                             })} id="latitude" placeholder="Enter Delivery address latitude" />
                             {errors.latitude && <p className='text-red-500 text-xs'>{errors.latitude.message}</p>}
                         </div>
@@ -223,12 +220,9 @@ const BookParcel = () => {
                         {/* delivery address longitude */}
                         <div className='w-full mb-2 md:mb-0'>
                             <Label htmlFor="longitude">Delivery Address Longitude</Label>
-                            <Input type="number" {...register('longitude', {
+                            <Input type="text" {...register('longitude', {
                                 required: 'Delivery address longitude is required',
-                                pattern: {
-                                    value: /^[-+]?((1[0-7]\d|\d{1,2})(\.\d+)?|180(\.0+)?)$/,
-                                    message: 'invalid Longitude'
-                                }
+                                
                             })} id="longitude" placeholder="Enter Delivery address Longitude" />
                             {errors.longitude && <p className='text-red-500 text-xs'>{errors.longitude.message}</p>}
                         </div>

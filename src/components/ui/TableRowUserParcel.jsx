@@ -25,7 +25,7 @@ const TableRowUserParcel = ({ idx, parcel, handleCancelParcel }) => {
         <TableRow className="" key={idx}>
             <TableCell className="whitespace-nowrap">{parcelType}</TableCell>
             <TableCell className="whitespace-nowrap">{moment(requestedDeliveryDate).format('DD-MM-YYYY')}</TableCell>
-            <TableCell className="whitespace-nowrap text-center">{approximateDeliveryDate === 'Not assigned' ? <p className={`text-center text-yellow-500 bg-yellow-50 py-1 rounded-2xl`}>{approximateDeliveryDate}</p> : moment(bookingDate).format('DD-MM-YYYY')}</TableCell>
+            <TableCell className="whitespace-nowrap text-center">{approximateDeliveryDate === 'Not assigned' ? <p className={`text-center text-yellow-500 bg-yellow-50 py-1 rounded-2xl`}>{approximateDeliveryDate}</p> : moment(approximateDeliveryDate).format('DD-MM-YYYY')}</TableCell>
             <TableCell className="whitespace-nowrap">{moment(bookingDate).format('DD-MM-YYYY')}</TableCell>
             <TableCell className="whitespace-nowrap">{deliveryMenId === 'Not assigned' ? <Badge className={`text-center bg-yellow-50 text-yellow-500 py-1 rounded-2xl`}>{deliveryMenId}</Badge> :  deliveryMenId }</TableCell>
             <TableCell className="whitespace-nowrap">
