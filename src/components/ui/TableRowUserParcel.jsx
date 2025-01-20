@@ -11,6 +11,8 @@ import { Input } from './input';
 import { useForm } from 'react-hook-form';
 import useAxiosSecure from '@/Hooks/useAxiosSecure';
 import useAuth from '@/Hooks/useAuth';
+import { Textarea } from './textarea';
+import toast from 'react-hot-toast';
 // import {
 //     DropdownMenu,
 //     DropdownMenuContent,
@@ -27,36 +29,38 @@ import useAuth from '@/Hooks/useAuth';
 
 const TableRowUserParcel = ({ idx, parcel, handleCancelParcel }) => {
     const { parcelType, userName, requestedDeliveryDate, approximateDeliveryDate, bookingDate, deliveryMenId, status, _id } = parcel
-    const {user} = useAuth()
+    const { user } = useAuth()
     const [isOpen, setIsOpen] = useState(false)
     const openDialog = () => setIsOpen(true)
     const closeDialog = () => setIsOpen(false)
-
-    const { handleSubmit, register, setValue, reset, formState: { errors } } = useForm()
+    const [active, setIsActive] = useState(false)
+    const { handleSubmit, register, reset, formState: { errors } } = useForm()
     const axiosSecure = useAxiosSecure()
 
     const onSubmit = async (data) => {
-        if (new Date(data.approximateDeliveryDate) < new Date()) {
-            return toast.error('give a future date')
-        }
-        if (new Date(data.approximateDeliveryDate) > new Date(requestedDeliveryDate)) {
-            return toast.error('give a date inside the requested deliveryDate')
+        if (data.rating > 6) {
+            return toast.error('rate out of five')
         }
 
         console.log(data)
         try {
-            const assigned = {
-                deliveryMenId: data.deliveryMen,
-                approximateDeliveryDate: data.approximateDeliveryDate
+            const review = {
+                userName: user?.displayName,
+                userImage: user?.photoURL,
+                rating: parseInt(data.rating),
+                deliveryMenId: deliveryMenId,
+                feedback: data.feedback
             }
-            const res = await axiosSecure.patch(`/parcel/assignDelivery/${_id}`, assigned)
-            if (res.data.modifiedCount) {
-                toast.success('Delivery assigned successfully')
-                refetch()
+            console.table(review)
+            const res = await axiosSecure.post(`/review`, review)
+            console.log(res.data)
+            if (res.data.insertedId) {
+                toast.success('Review submitted successfully')
+                setIsActive(true)
                 closeDialog()
             }
         } catch (err) {
-            toast.error(err.response?.message || 'Failed to assign delivery')
+            toast.error(err.response?.message || 'Failed to give rating')
         }
 
     }
@@ -78,14 +82,14 @@ const TableRowUserParcel = ({ idx, parcel, handleCancelParcel }) => {
                 {status === 'delivered' &&
 
                     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-                        <button onClick={openDialog} className="px-2 py-1 rounded-sm bg-green-500 text-white">Review</button>
+                        <button onClick={openDialog} disabled={active} className={`px-2 py-1 rounded-sm bg-green-500 text-white`}>Review</button>
                         <DialogContent className="sm:max-w-[350px] p-4">
                             <DialogHeader>
                                 <DialogTitle className="text-xl">Give review</DialogTitle>
                             </DialogHeader>
-                            <div className="grid gap-4 pt-1">
+                            <div className="grid gap-4">
                                 <form onSubmit={handleSubmit(onSubmit)}>
-                                    {/* select */}
+                                    {/* user name */}
                                     <div className='w-full mb-2'>
                                         <Label className="pb-3">User Name</Label>
                                         <Input type="text" defaultValue={user?.displayName} readOnly
@@ -96,7 +100,7 @@ const TableRowUserParcel = ({ idx, parcel, handleCancelParcel }) => {
                                         {errors.reviewGiversName && <p className='text-red-500 text-xs'>{errors.reviewGiversName.message}</p>}
 
                                     </div>
-                                    {/* delivery date */}
+                                    {/* user image  */}
                                     <div className="w-full mb-3">
                                         <Label htmlFor="image">User Image</Label>
                                         <Input defaultValue={user?.photoURL} readOnly type="url"
@@ -104,11 +108,48 @@ const TableRowUserParcel = ({ idx, parcel, handleCancelParcel }) => {
                                                 required: 'user image  is required'
                                             })}
                                             name="reviewGiversImage" id="" />
+                                        {errors.reviewGiversImage && <p className='text-red-500 text-xs'>{errors.reviewGiversImage.message}</p>}
+
+
+                                    </div>
+                                    {/* rating date */}
+                                    <div className="w-full mb-3">
+                                        <Label htmlFor="rate">Rate Delivery Men</Label>
+                                        <Input type="number"
+                                            {...register('rating', {
+                                                required: 'rating  is required'
+                                            })}
+                                            name="rating" id="" placeholder="rate about delivery" />
+                                        {errors.rating && <p className='text-red-500 text-xs'>{errors.rating.message}</p>}
+
+
+                                    </div>
+                                    {/* deliveryMen id */}
+                                    <div className="w-full mb-3">
+                                        <Label htmlFor="id">Delivery Men ID</Label>
+                                        <Input defaultValue={deliveryMenId} type="text" readOnly
+                                            {...register('deliveryMenId', {
+                                                required: 'deliveryMenId  is required'
+                                            })}
+                                            name="deliveryMenId" id="" placeholder="rate about delivery" />
+                                        {errors.deliveryMenId && <p className='text-red-500 text-xs'>{errors.deliveryMenId.message}</p>}
+
+
+                                    </div>
+                                    {/* feedback */}
+                                    <div className="w-full mb-3">
+                                        <Label htmlFor="feedback">Feedback</Label>
+                                        <Textarea placeholder="Type your message here."
+                                            {...register('feedback', {
+                                                required: 'feedback  is required'
+                                            })}
+                                        />
+                                        {errors.feedback && <p className='text-red-500 text-xs'>{errors.feedback.message}</p>}
 
 
                                     </div>
                                     <div className="flex gap-3 justify-start">
-                                        <Button type="submit" className="bg-green-400">Assign</Button>
+                                        <Button type="submit" className="bg-green-400">Submit</Button>
                                         <DialogClose asChild>
                                             <Button type="button" variant="destructive">
                                                 Cancel
