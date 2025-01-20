@@ -30,8 +30,8 @@ const MyDeliveryList = () => {
     })
     console.log(myDeliveryList)
 
-    const handleCancelParcel = (bookedId) => {
-        console.log(bookedId)
+    const handleChangeParcelStatus = (bookedId, status, titleLabel, textLabel) => {
+        console.log(bookedId, status)
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -42,12 +42,12 @@ const MyDeliveryList = () => {
             confirmButtonText: "Continue"
         }).then(async (result) => {
             if (result.isConfirmed) {
-                axiosSecure.patch(`/parcel/cancelled/${bookedId}`)
+                 axiosSecure.patch(`/parcel/parcelStatus/${bookedId}`, { status })
                     .then(res => {
                         if (res.data.modifiedCount) {
                             Swal.fire({
-                                title: "Cancelled!",
-                                text: "Delivery has been cancelled.",
+                                title: titleLabel,
+                                text: textLabel,
                                 icon: "success"
                             });
                             refetch()
@@ -80,7 +80,7 @@ const MyDeliveryList = () => {
                     </TableHeader>
                     <TableBody>
                         {
-                            myDeliveryList.map((deliveryList, idx) => <TableRowDeliveryList key={idx} deliveryList={deliveryList} handleCancelParcel={handleCancelParcel} refetch={refetch}></TableRowDeliveryList>)
+                            myDeliveryList.map((deliveryList, idx) => <TableRowDeliveryList key={idx} deliveryList={deliveryList} handleChangeParcelStatus={handleChangeParcelStatus} refetch={refetch}></TableRowDeliveryList>)
                         }
                     </TableBody>
                 </Table>

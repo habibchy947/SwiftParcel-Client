@@ -7,7 +7,7 @@ import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet'
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from './dialog';
 import { Label } from './label';
 import { Input } from './input';
-const TableRowDeliveryList = ({ deliveryList }) => {
+const TableRowDeliveryList = ({ deliveryList, handleChangeParcelStatus }) => {
     const {
         _id,
         userName,
@@ -70,8 +70,8 @@ const TableRowDeliveryList = ({ deliveryList }) => {
                         </DialogFooter>
                     </DialogContent>
                 </Dialog>
-                <button onClick={()=>handleCancelParcel(_id)} disabled={status === 'delivered' || status === 'cancelled'} className={`px-2 ${status === 'delivered' || status === 'cancelled' && 'bg-slate-400'} text-center py-1 rounded-sm text-white bg-red-500`}>Cancel</button>
-                <button className="px-2  text-center py-1 rounded-sm text-white bg-green-500">Deliver</button>
+                <button onClick={()=>handleChangeParcelStatus(_id, 'cancelled', 'Cancelled', 'Delivery Cancelled')} disabled={status === 'delivered' || status === 'cancelled'} className={`px-2 ${status === 'delivered' || status === 'cancelled' || status === 'returned' ? 'bg-slate-400 text-white' : 'text-white bg-red-500'} text-center py-1 rounded-sm `}>{status === 'cancelled' ? 'Cancelled': 'Cancel'}</button>
+                <button onClick={()=>handleChangeParcelStatus(_id, 'delivered', 'Delivered', 'Parcel has been delivered')} disabled={status === 'delivered' || status === 'cancelled'} className={`px-2 ${status === 'delivered' || status === 'cancelled' || status === 'returned' ? 'bg-slate-400 text-white' : 'text-white bg-green-500'} text-center py-1 rounded-sm `}>{status === 'delivered' ? 'Delivered': 'Deliver'}</button>
             </TableCell>
         </TableRow>
     );
