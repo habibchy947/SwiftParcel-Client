@@ -80,7 +80,7 @@ const MyDeliveryList = () => {
                     </TableHeader>
                     <TableBody>
                         {
-                            myDeliveryList.map((deliveryList, idx) => <TableRowDeliveryList key={idx} deliveryList={deliveryList} handleChangeParcelStatus={handleChangeParcelStatus} refetch={refetch}></TableRowDeliveryList>)
+                            myDeliveryList.map((deliveryList, idx) => <TableRowDeliveryList key={idx} isDeliveryLisLoading={isDeliveryLisLoading} deliveryList={deliveryList} handleChangeParcelStatus={handleChangeParcelStatus} refetch={refetch}></TableRowDeliveryList>)
                         }
                     </TableBody>
                 </Table>

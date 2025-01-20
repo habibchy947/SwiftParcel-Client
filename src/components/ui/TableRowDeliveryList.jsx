@@ -1,13 +1,13 @@
-import 'leaflet/dist/leaflet.css';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { TableCell, TableRow } from './table';
 import moment from 'moment';
 import { Button } from './button';
 import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet'
+import 'leaflet/dist/leaflet.css';
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from './dialog';
-import { Label } from './label';
-import { Input } from './input';
-const TableRowDeliveryList = ({ deliveryList, handleChangeParcelStatus }) => {
+import Loading from './Loading';
+
+const TableRowDeliveryList = ({ deliveryList, handleChangeParcelStatus, isDeliveryLisLoading }) => {
     const {
         _id,
         userName,
@@ -28,11 +28,19 @@ const TableRowDeliveryList = ({ deliveryList, handleChangeParcelStatus }) => {
         price,
         status,
     } = deliveryList || {}
-    // const [position, setPosition] = useState([latitude, longitude])
-    // useEffect(()=>{
+    
+    const position = latitude && longitude ? [latitude,longitude] : null
+    const [mapVisible, setMapVisible] = useState(Date.now())
 
-    // },[latitude,longitude])
-    const position = [latitude,longitude]
+    const handleDialogChange = (open) => {
+        if(open){
+            setMapVisible(Date.now())
+        }
+    }
+    const mapRef = useRef(null)
+     if(isDeliveryLisLoading) {
+        return <Loading></Loading>
+     }
     return (
         <TableRow className="">
             <TableCell className="whitespace-nowrap">{userName}</TableCell>
@@ -43,14 +51,16 @@ const TableRowDeliveryList = ({ deliveryList, handleChangeParcelStatus }) => {
             <TableCell className="whitespace-nowrap">{receiverPhone}</TableCell>
             <TableCell className="whitespace-nowrap">{deliveryAddress}</TableCell>
             <TableCell className="whitespace-nowrap flex gap-1">
-                <Dialog>
+                <Dialog onOpenChange={handleDialogChange}>
                     <DialogTrigger asChild>
                         <Button variant="outline" className="bg-red-400 text-white">View Location</Button>
                     </DialogTrigger>
                     <DialogContent className="max-w-2xl">
-                        <DialogTitle>Screen readibiliyt</DialogTitle>
-                        {/* main content */}
-                        <MapContainer center={position} zoom={12} style={{width: '600px', height: '500px'}}>
+                        <DialogTitle></DialogTitle>
+                        <DialogDescription></DialogDescription>
+                        {
+                            position ? (
+                                <MapContainer whenReady={(mapInstance) => mapRef.current = mapInstance} key={_id} center={position} zoom={12} style={{width: '600px', height: '500px'}}>
                             <TileLayer
                              url='https://api.maptiler.com/maps/basic-v2/256/{z}/{x}/{y}.png?key=BefSPM9r2086N4GtobHL'
                              attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
@@ -60,12 +70,14 @@ const TableRowDeliveryList = ({ deliveryList, handleChangeParcelStatus }) => {
                                 <Popup>{deliveryAddress}</Popup>
                             </Marker>
                         </MapContainer>
+                            ) :
+                            ( <p>Location data unavailable</p>)
+                        }
                         <DialogFooter className="sm:justify-start">
                             <DialogClose asChild>
                                 <Button type="button" variant="secondary">
                                     Close
                                 </Button>
-                                {/* 22.37884823904678, 91.91728585442843 */}
                             </DialogClose>
                         </DialogFooter>
                     </DialogContent>
