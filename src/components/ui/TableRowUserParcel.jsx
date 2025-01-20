@@ -49,7 +49,8 @@ const TableRowUserParcel = ({ idx, parcel, handleCancelParcel }) => {
                 userImage: user?.photoURL,
                 rating: parseInt(data.rating),
                 deliveryMenId: deliveryMenId,
-                feedback: data.feedback
+                feedback: data.feedback,
+                reviewGivingDate: new Date()
             }
             console.table(review)
             const res = await axiosSecure.post(`/review`, review)

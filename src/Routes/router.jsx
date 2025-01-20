@@ -19,6 +19,7 @@ import MyDeliveryList from "@/Pages/DeliveryMen/MyDeliveryList";
 import AllUsers from "@/Pages/Admin/AllUsers";
 import AllParcels from "@/Pages/Admin/AllParcels";
 import AllDeliveryMen from "@/Pages/Admin/AllDeliveryMen";
+import MyReviews from "@/Pages/DeliveryMen/MyReviews";
 
 const router = createBrowserRouter([
   {
@@ -83,6 +84,12 @@ const router = createBrowserRouter([
         path: 'myDeliveryList',
         element: <DeliveryMenRoute>     
           <MyDeliveryList></MyDeliveryList>
+        </DeliveryMenRoute>
+      },
+      {
+        path: 'myReviews',
+        element: <DeliveryMenRoute>     
+          <MyReviews></MyReviews>
         </DeliveryMenRoute>
       },
       // user route
