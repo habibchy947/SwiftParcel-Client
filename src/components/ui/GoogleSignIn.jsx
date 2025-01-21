@@ -4,6 +4,7 @@ import { Button } from './button';
 import useAuth from '@/Hooks/useAuth';
 import useAxiosPublic from '@/Hooks/useAxiosPublic';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 // import { Input } from './input';
 // import { useForm } from 'react-hook-form';
 
@@ -28,11 +29,14 @@ const GoogleSignIn = ({ title }) => {
                 // console.log(res.data)
                 navigate('/')
             })
-            .catch(() => {
+            .catch((err) => {
                 // console.log(err)
+                toast.error(err.response?.message || 'Sign in with valid email')
             })
          })
-         .catch(() => {}) 
+         .catch((err) => {
+            toast.error(err.response?.message || 'Sign in with valid email')
+         }) 
             
 
         //     try {

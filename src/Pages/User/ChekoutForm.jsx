@@ -5,6 +5,7 @@ import useAxiosSecure from '@/Hooks/useAxiosSecure';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 const ChekoutForm = ({ id }) => {
@@ -78,6 +79,7 @@ const ChekoutForm = ({ id }) => {
             console.log("paymen intent", paymentIntent)
             if (paymentIntent.status === 'succeeded') {
                 setTransactionId(paymentIntent.id)
+                toast.success('Payment succedded')
                 navigate('/dashboard/paymentSuccess')
             }
         }

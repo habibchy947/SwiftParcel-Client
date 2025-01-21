@@ -5,6 +5,8 @@ import useAxiosSecure from '@/Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import moment from 'moment';
 import React from 'react';
+import { MdOutlineStarOutline, MdOutlineStarPurple500 } from 'react-icons/md';
+import Rating from 'react-rating';
 
 const MyReviews = () => {
     const axiosSecure = useAxiosSecure()
@@ -34,21 +36,34 @@ const MyReviews = () => {
     return (
         <div>
             <DashboardHeader title={'My Reviews'}></DashboardHeader>
-            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4'>
-                {
-                    reviews && reviews.map((review, idx) => (
-                        <div className='p-3 rounded-md border shadow-sm border-gray-50 md:flex gap-3'>
-                            <div className='border rounded-md'><img className='md:w-64 w-full h-80 md:h-full object-cover rounded-md' src={review.userImage} alt="" /></div>
-                            <div className='space-y-2'>
-                                <h2 className='text-lg font-semibold'>{review.userName}</h2>
-                                <p><span className='text-base font-semibold'>Rating : </span><span>{review.rating}</span></p>
-                                <p>{review.feedback}</p>
-                                <p className='font-semibold'>{moment(review.reviewGivingDate).format('DD-MM-YYYY')}</p>
+            {!reviews ?
+                <h2 className='text-2xl font-semibold text-destructive'>No reviews available</h2>
+                :
+                <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-2'>
+                    {
+                        reviews && reviews.map((review, idx) => (
+                            <div className='p-3 rounded-md border shadow-sm border-gray-100 md:flex gap-3'>
+                                <div className='border rounded-md'><img className='md:w-72 w-full h-80 md:h-full object-cover rounded-md' src={review.userImage} alt="" /></div>
+                                <div className='space-y-2'>
+                                    <h2 className='text-lg font-semibold'>{review.userName}</h2>
+                                    <p className='flex gap-1 items-center'>
+                                        <Rating
+                                            className='text-lg'
+                                            initialRating={review.rating}
+                                            emptySymbol={<MdOutlineStarOutline />}
+                                            fullSymbol={<MdOutlineStarPurple500 className='text-yellow-400' />}
+                                            fractions={2}
+                                        />
+                                        <span>{review.rating}</span>
+                                    </p>
+                                    <p>{review.feedback}</p>
+                                    <p className='font-semibold'>{moment(review.reviewGivingDate).format('DD-MM-YYYY')}</p>
+                                </div>
                             </div>
-                        </div>
-                    ))
-                }
-            </div>
+                        ))
+                    }
+                </div>
+            }
         </div>
     );
 };

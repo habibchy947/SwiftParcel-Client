@@ -59,7 +59,7 @@ const SignUp = () => {
                                         .then(res => {
                                             console.log(res.data)
                                             if(res.data.insertedId){
-                                                toast.success('deliveryMen saved to database')
+                                                toast.success('DeliveryMen saved to database')
                                             }
                                         })
                                     }
@@ -71,12 +71,12 @@ const SignUp = () => {
                             })
                     })
                     .catch(err => {
-                        console.log(err)
+                        toast.error(err.response?.message || 'An error occurred')
                     })
 
             })
             .catch(err => {
-                toast.error(err.message || 'An error occured')
+                toast.error(err.response?.message || "We couldn't create your account. lease check your info and try again")
             })
 
     }

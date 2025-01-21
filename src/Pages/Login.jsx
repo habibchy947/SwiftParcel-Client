@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form';
 import GoogleSignIn from '@/components/ui/GoogleSignIn';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '@/Hooks/useAuth';
+import toast from 'react-hot-toast';
 
 const Login = () => {
     const {signInUser, loading} = useAuth()
@@ -22,11 +23,12 @@ const Login = () => {
             await signInUser(data.email, data.password)
             .then(result => {
                 console.log(result.user)
+                toast.success('Welcome Back! You have successfully logged in. Enjoy your session.')
                 reset()
                 navigate(from || '/')
             })
             .catch(err => {
-                console.log(err)
+                toast.error(err.response?.message || 'Login Failed! Invalid email or password. Please try again')
             })
 
         }

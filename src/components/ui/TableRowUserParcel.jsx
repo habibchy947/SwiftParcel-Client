@@ -13,19 +13,9 @@ import useAxiosSecure from '@/Hooks/useAxiosSecure';
 import useAuth from '@/Hooks/useAuth';
 import { Textarea } from './textarea';
 import toast from 'react-hot-toast';
-// import {
-//     DropdownMenu,
-//     DropdownMenuContent,
-//     DropdownMenuGroup,
-//     DropdownMenuItem,
-//     DropdownMenuLabel,
-//     DropdownMenuSeparator,
-//     DropdownMenuShortcut,
-//     DropdownMenuTrigger,
-// } from "@/components/ui/dropdown-menu"
-// import { FaRegUser } from 'react-icons/fa6';
-// import { MdOutlineDashboard } from 'react-icons/md';
-// import { IoLogOutOutline } from 'react-icons/io5';
+import Rating from 'react-rating';
+import { MdOutlineStarOutline, MdOutlineStarPurple500 } from 'react-icons/md';
+
 
 const TableRowUserParcel = ({ idx, parcel, handleCancelParcel }) => {
     const { parcelType, userName, requestedDeliveryDate, approximateDeliveryDate, bookingDate, deliveryMenId, status, _id } = parcel
@@ -36,6 +26,11 @@ const TableRowUserParcel = ({ idx, parcel, handleCancelParcel }) => {
     const [active, setIsActive] = useState(false)
     const { handleSubmit, register, reset, formState: { errors } } = useForm()
     const axiosSecure = useAxiosSecure()
+    const [rating, setRatng] = useState(0)
+
+    const handleRatingChange = (value) => {
+        setRatng(value)
+    }
 
     const onSubmit = async (data) => {
         if (data.rating > 6) {
@@ -47,7 +42,7 @@ const TableRowUserParcel = ({ idx, parcel, handleCancelParcel }) => {
             const review = {
                 userName: user?.displayName,
                 userImage: user?.photoURL,
-                rating: parseInt(data.rating),
+                rating: rating,
                 deliveryMenId: deliveryMenId,
                 feedback: data.feedback,
                 reviewGivingDate: new Date()
@@ -113,14 +108,20 @@ const TableRowUserParcel = ({ idx, parcel, handleCancelParcel }) => {
 
 
                                     </div>
-                                    {/* rating date */}
-                                    <div className="w-full mb-3">
-                                        <Label htmlFor="rate">Rate Delivery Men</Label>
-                                        <Input type="number"
-                                            {...register('rating', {
-                                                required: 'rating  is required'
-                                            })}
-                                            name="rating" id="" placeholder="rate about delivery" />
+                                    {/* rating  */}
+                                    <div className="w-full mb-3 flex flex-col">
+                                        <Label htmlFor="rate" className="mb-2">Rate Delivery Men</Label>
+                                        <Rating
+                                        className='text-2xl'
+                                        required
+                                        initialRating={rating}
+                                        emptySymbol={<MdOutlineStarOutline/>}
+                                        fullSymbol={<MdOutlineStarPurple500 className='text-yellow-400'/>}
+                                        onChange={handleRatingChange}
+                                        fractions={2}
+                                        >
+
+                                        </Rating>
                                         {errors.rating && <p className='text-red-500 text-xs'>{errors.rating.message}</p>}
 
 
