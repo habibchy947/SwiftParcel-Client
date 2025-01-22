@@ -6,6 +6,7 @@ import useAuth from '@/Hooks/useAuth';
 import useAxiosSecure from '@/Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import Swal from 'sweetalert2';
 
 const MyDeliveryList = () => {
@@ -28,10 +29,10 @@ const MyDeliveryList = () => {
             return []
         }
     })
-    console.log(myDeliveryList)
+    // console.log(myDeliveryList)
 
     const handleChangeParcelStatus = (bookedId, status, titleLabel, textLabel) => {
-        console.log(bookedId, status)
+        // console.log(bookedId, status)
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -42,7 +43,7 @@ const MyDeliveryList = () => {
             confirmButtonText: "Continue"
         }).then(async (result) => {
             if (result.isConfirmed) {
-                 axiosSecure.patch(`/parcel/parcelStatus/${bookedId}`, { status })
+                axiosSecure.patch(`/parcel/parcelStatus/${bookedId}`, { status })
                     .then(res => {
                         if (res.data.modifiedCount) {
                             Swal.fire({
@@ -63,16 +64,19 @@ const MyDeliveryList = () => {
     }
     return (
         <div>
+            <Helmet>
+                <title>SwiftParcel | My Delivery List</title>
+            </Helmet>
             <DashboardHeader title={`My Delivery List (${myDeliveryList.length})`}></DashboardHeader>
             <div className='rounded-md border mt-2 overflow-x-auto'>
                 <Table className="w-full table-auto">
                     <TableHeader className='bg-slate-50'>
                         <TableRow className="font-medium text-md">
-                            <TableHead className="whitespace-nowrap">Booked User Name</TableHead>
+                            <TableHead className="whitespace-nowrap">Booked User<br />Name</TableHead>
                             <TableHead className="whitespace-nowrap">Reciever Name</TableHead>
-                            <TableHead className="whitespace-nowrap">Booked User Phone</TableHead>
-                            <TableHead className="whitespace-nowrap">Req. Delivery Date</TableHead>
-                            <TableHead className="whitespace-nowrap">Approx. Delivery Date</TableHead>
+                            <TableHead className="whitespace-nowrap">Booked User<br />Phone</TableHead>
+                            <TableHead className="whitespace-nowrap">Req. Delivery <br /> Date</TableHead>
+                            <TableHead className="whitespace-nowrap">Approx.Delivery<br />Date</TableHead>
                             <TableHead className="whitespace-nowrap">Reciever Phone</TableHead>
                             <TableHead className="whitespace-nowrap">Reciever Address</TableHead>
                             <TableHead className="whitespace-nowrap">Action</TableHead>

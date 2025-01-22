@@ -18,9 +18,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '@/Hooks/useAuth';
 import toast from 'react-hot-toast';
 import useAxiosPublic from '@/Hooks/useAxiosPublic';
+import { Helmet } from 'react-helmet-async';
 
 const SignUp = () => {
-    const { createUser, setUser, updateUserProfile , loading} = useAuth()
+    const { createUser, setUser, updateUserProfile, loading } = useAuth()
     const naviagte = useNavigate()
     const axiosPublic = useAxiosPublic()
     const { handleSubmit, register, setValue, reset, formState: { errors } } = useForm()
@@ -28,13 +29,13 @@ const SignUp = () => {
     const onSubmit = async (data) => {
         const image = data.photoFile[0]
         const photo = await uploadImage(image)
-        console.log(photo, data.phone)
+        // console.log(photo, data.phone)
         await createUser(data.email, data.password)
             .then(result => {
-                console.log(result.user)
+                // console.log(result.user)
                 setUser(result.user)
                 updateUserProfile(data.name, photo)
-                    .then(async() => {
+                    .then(async () => {
                         const userInfo = {
                             name: data.name,
                             email: data.email,
@@ -43,27 +44,27 @@ const SignUp = () => {
                             userType: data.userType
                         }
                         // save user data in db
-                       await axiosPublic.post('/user', userInfo)
-                            .then(async(res) => {
+                        await axiosPublic.post('/user', userInfo)
+                            .then(async (res) => {
                                 if (res.data.insertedId) {
-                                    if(data.userType === 'deliveryMen'){
+                                    if (data.userType === 'deliveryMen') {
                                         const deliverMenInfo = {
                                             deliveryMenName: data.name,
-                                            deliveryMenEmail:data.email,
-                                            deliveryMenImage:photo,
-                                            deliveryMenPhone:data.phone,
-                                            numberOfParcelsDelivered:0,
-                                            averageReview:0
+                                            deliveryMenEmail: data.email,
+                                            deliveryMenImage: photo,
+                                            deliveryMenPhone: data.phone,
+                                            numberOfParcelsDelivered: 0,
+                                            averageReview: 0
                                         }
-                                      await  axiosPublic.post('/deliveryMen', deliverMenInfo)
-                                        .then(res => {
-                                            console.log(res.data)
-                                            if(res.data.insertedId){
-                                                toast.success('DeliveryMen saved to database')
-                                            }
-                                        })
+                                        await axiosPublic.post('/deliveryMen', deliverMenInfo)
+                                            .then(res => {
+                                                // console.log(res.data)
+                                                if (res.data.insertedId) {
+                                                    toast.success('DeliveryMen saved to database')
+                                                }
+                                            })
                                     }
-                                    console.log('user saved to database')
+                                    // console.log('user saved to database')
                                     reset()
                                     toast.success('Account created successfully')
                                     naviagte('/')
@@ -82,6 +83,9 @@ const SignUp = () => {
     }
     return (
         <div className="w-10/12 md:w-9/12  max-w-screen-xl py-10 mx-auto min-h-screen justify-center grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-2 lg:gap-5 items-center">
+            <Helmet>
+                <title>SwiftParcel | SignUp</title>
+            </Helmet>
             <div>
                 <img className='w-96' src={signUpImg} alt="" />
             </div>

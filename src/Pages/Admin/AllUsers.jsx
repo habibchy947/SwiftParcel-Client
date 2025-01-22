@@ -1,4 +1,5 @@
 import DashboardHeader from '@/components/ui/DashboardHeader';
+import Loading from '@/components/ui/Loading';
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
 import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import TableUser from '@/components/ui/TableUser';
@@ -7,6 +8,7 @@ import useAxiosPublic from '@/Hooks/useAxiosPublic';
 import useAxiosSecure from '@/Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 
 const AllUsers = () => {
@@ -16,7 +18,7 @@ const AllUsers = () => {
     const itemsPerPage = 5
 
     const [currentPage, setCurrentPage] = useState(0)
-    
+
 
     const { data: allUsersData = {}, refetch, isLoading } = useQuery({
         queryKey: ['allUsers', user?.email, currentPage, itemsPerPage],
@@ -24,37 +26,37 @@ const AllUsers = () => {
             const { data } = await axiosSecure.get(`/allUsers/${user?.email}?page=${currentPage}&size=${itemsPerPage}`)
             return data
         },
-        keepPreviousData:true
+        keepPreviousData: true
     })
-    
-    const {allUsers = [], totalUsersCount = 0 } = allUsersData || {}
-    console.log(totalUsersCount)
-    console.log(allUsers)
+
+    const { allUsers = [], totalUsersCount = 0 } = allUsersData || {}
+    // console.log(totalUsersCount)
+    // console.log(allUsers)
     const numberOfPage = Math.ceil(totalUsersCount / itemsPerPage)
     const pages = [...Array(numberOfPage).keys()]
 
-    console.log(pages)
+    // console.log(pages)
     const handleChangeUserType = async (singleUser, userType) => {
-        console.log(singleUser, userType)
+        // console.log(singleUser, userType)
         try {
             const res = await axiosSecure.patch(`/user/updateUserType/${singleUser._id}`, { userType })
             if (res.data.modifiedCount) {
-                if(userType ==='deliveryMen'){
+                if (userType === 'deliveryMen') {
                     const deliverMenInfo = {
                         deliveryMenName: singleUser.name,
-                        deliveryMenEmail:singleUser.email,
-                        deliveryMenImage:singleUser.image,
-                        deliveryMenPhone:singleUser.phone,
-                        numberOfParcelsDelivered:0,
-                        averageReview:0
+                        deliveryMenEmail: singleUser.email,
+                        deliveryMenImage: singleUser.image,
+                        deliveryMenPhone: singleUser.phone,
+                        numberOfParcelsDelivered: 0,
+                        averageReview: 0
                     }
-                  await  axiosPublic.post('/deliveryMen', deliverMenInfo)
-                    .then(res => {
-                        console.log(res.data)
-                        if(res.data.insertedId){
-                            toast.success('deliveryMen saved to database')
-                        }
-                    })
+                    await axiosPublic.post('/deliveryMen', deliverMenInfo)
+                        .then(res => {
+                            // console.log(res.data)
+                            if (res.data.insertedId) {
+                                toast.success('deliveryMen saved to database')
+                            }
+                        })
                 }
                 toast.success(`User is ${userType} now!`)
                 refetch()
@@ -65,20 +67,23 @@ const AllUsers = () => {
     }
 
     const handlePrevPage = () => {
-        if(currentPage > 0) {
+        if (currentPage > 0) {
             setCurrentPage(currentPage - 1)
         }
     }
     const handleNextPage = () => {
-        if(currentPage < pages.length - 1){
+        if (currentPage < pages.length - 1) {
             setCurrentPage(currentPage + 1)
         }
     }
     return (
         <div>
+            <Helmet>
+                <title>SwiftParcel | All Users</title>
+            </Helmet>
             <DashboardHeader title={`All Users (${allUsers.length})`}></DashboardHeader>
-            <div className='rounded-md border mt-2 overflow-x-auto'>
-                <Table className="w-full table-auto">
+            <div className='rounded-md border mt-2 overflow-x-auto '>
+                <Table className="w-full table-auto ">
                     <TableHeader className='bg-slate-50'>
                         <TableRow className="font-medium text-md">
                             <TableHead className="whitespace-nowrap">User Name</TableHead>
@@ -88,7 +93,8 @@ const AllUsers = () => {
                             <TableHead className="whitespace-nowrap">Action</TableHead>
                         </TableRow>
                     </TableHeader>
-                    <TableBody>
+                    
+                    <TableBody className="">
                         {
                             allUsers.map((singleUser, idx) => <TableUser handleChangeUserType={handleChangeUserType} key={idx} singleUser={singleUser} ></TableUser>)
                         }
@@ -103,9 +109,9 @@ const AllUsers = () => {
                     {
                         pages.map((page, index) => (
                             <PaginationItem key={index} >
-                                <PaginationLink onClick={()=> setCurrentPage(page)}
+                                <PaginationLink onClick={() => setCurrentPage(page)}
                                     className={currentPage === page ? 'bg-red-400 text-white' : undefined}
-                                    >{page}</PaginationLink>
+                                >{page}</PaginationLink>
                             </PaginationItem>
                         ))
                     }

@@ -23,7 +23,7 @@ const App_Stats = () => {
         return <Loading></Loading>
     }
     return (
-        <div ref={ref} className='w-11/12 mx-auto grid grid-cols-1 md:grid-cols-3 gap-5 pt-10'>
+        <div ref={ref} className='w-11/12 mx-auto grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-7 pt-16'>
             {/* {
                 inView && (
                     <div>

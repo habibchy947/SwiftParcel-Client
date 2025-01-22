@@ -7,13 +7,13 @@ const TableRowAllDeliveryMen = ({ deliveryMen, idx }) => {
         deliveryMenImage,
         deliveryMenPhone,
         numberOfParcelsDelivered,
-        averageReview } = deliveryMen || {}
+        averageRating } = deliveryMen || {}
     return (
         <TableRow className="">
             <TableCell className="whitespace-nowrap">{deliveryMenName}</TableCell>
             <TableCell className="whitespace-nowrap">{deliveryMenPhone}</TableCell>
             <TableCell className="whitespace-nowrap">{numberOfParcelsDelivered}</TableCell>
-            <TableCell className="whitespace-nowrap">{averageReview}</TableCell>
+            <TableCell className="whitespace-nowrap">{averageRating}</TableCell>
         </TableRow>
     );
 };

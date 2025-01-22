@@ -14,19 +14,22 @@ const Footer = () => {
                         </Link>
                         <p className='text-gray-500 mt-3 dark:text-gray-400 font-medium'>Streamlining parcel deliveries with secure, fast, and reliable solutions for businesses and individuals</p>
                     </div>
-                    <div className="grid grid-cols-2 gap-8 sm:gap-1 sm:grid-cols-3 md:grid-cols-4 flex-1">
+                    <div className="grid grid-cols-2 gap-4 md:gap-8 sm:gap-1 sm:grid-cols-3 flex-1">
                         <div>
-                            <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Resources</h2>
+                            <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Quick Links</h2>
                             <ul className="text-gray-500 dark:text-gray-400 font-medium">
                                 <li className="mb-4">
-                                    <a href="https://flowbite.com/" className="hover:underline">Flowbite</a>
+                                    <Link to='/dashboard/myParcels' className="hover:underline">My Parcels</Link>
+                                </li>
+                                <li className='mb-4'>
+                                    <Link to='/dashboard/bookParcel' className="hover:underline">Book Parcel</Link>
                                 </li>
                                 <li>
-                                    <a href="https://tailwindcss.com/" className="hover:underline">Tailwind CSS</a>
+                                    <Link to='/dashboard/myProfile' className="hover:underline">Profile</Link>
                                 </li>
                             </ul>
                         </div>
-                        <div>
+                        {/* <div>
                             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Follow us</h2>
                             <ul className="text-gray-500 dark:text-gray-400 font-medium">
                                 <li className="mb-4">
@@ -36,7 +39,7 @@ const Footer = () => {
                                     <a href="https://discord.gg/4eeurUVvTy" className="hover:underline">Discord</a>
                                 </li>
                             </ul>
-                        </div>
+                        </div> */}
                         <div>
                             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
                             <ul className="text-gray-500 dark:text-gray-400 font-medium">
@@ -48,7 +51,7 @@ const Footer = () => {
                                 </li>
                             </ul>
                         </div>
-                        <div>
+                        <div className='col-span-2 sm:col-span-1'>
                             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">NewsLetter</h2>
                             <p className='text-gray-500 dark:text-gray-400 font-medium mb-3'>Enter your email address</p>
                             <div className="flex w-full items-center  join">
@@ -60,7 +63,7 @@ const Footer = () => {
                 </div>
                 <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
                 <div className="sm:flex sm:items-center sm:justify-between">
-                    <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="https://flowbite.com/" class="hover:underline">Flowbite™</a>. All Rights Reserved.
+                    <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="https://flowbite.com/" class="hover:underline">SwiftParcel</a>. All Rights Reserved.
                     </span>
                     <div className="flex mt-4 sm:justify-center sm:mt-0">
                         <a href="#" className="text-gray-500 hover:text-gray-900 dark:hover:text-white">

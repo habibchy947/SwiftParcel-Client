@@ -13,6 +13,7 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import toast from 'react-hot-toast';
 import Loading from '@/components/ui/Loading';
+import { Helmet } from 'react-helmet-async';
 
 const MyProfile = () => {
     const { user, updateUserProfile } = useAuth()
@@ -20,40 +21,43 @@ const MyProfile = () => {
     const { data: userProfile = {}, isLoading, refetch } = useQuery({
         queryKey: ['profile', user?.email],
         queryFn: async () => {
-            const { data } = await axiosSecure.get(`http://localhost:5000/user/${user?.email}`)
+            const { data } = await axiosSecure.get(`https://swift-parcel-server-eta.vercel.app/user/${user?.email}`)
             return data
         }
     })
-    console.log(userProfile)
+    // console.log(userProfile)
     const { handleSubmit, register, reset, formState: { errors } } = useForm()
 
     const onSubmit = async (data) => {
-        try{
+        try {
             const imageFile = data.photoFile[0]
             const photo = await uploadImage(imageFile)
             await updateUserProfile(userProfile.name, photo)
 
-            const res = await  axiosSecure.patch(`/user/${user?.email}`, {image:photo})
-                if (res.data.modifiedCount) {
-                    console.log('picture updated successfully')
-                    reset()
-                    refetch()
-                    toast.success('Picture uploaded successfully')
-                }else{
-                    toast.error('failed to upload')
-                }
+            const res = await axiosSecure.patch(`/user/${user?.email}`, { image: photo })
+            if (res.data.modifiedCount) {
+                // console.log('picture updated successfully')
+                reset()
+                refetch()
+                toast.success('Picture uploaded successfully')
+            } else {
+                toast.error('failed to upload')
+            }
         } catch (err) {
             toast.error(err)
         }
-        
+
 
     }
 
-    if(isLoading){
+    if (isLoading) {
         return <Loading></Loading>
     }
     return (
         <div className='w-11/12 md:w-6/12 mx-auto border rounded-md'>
+            <Helmet>
+                <title>SwiftParcel | Profile</title>
+            </Helmet>
             <div
                 style={{
                     backgroundImage: `url(${profileBg})`,
@@ -80,10 +84,10 @@ const MyProfile = () => {
                                 {...register('photoFile', { required: 'Please upload a photo' })}
                                 type="file" accept='image/*' />
                             <label htmlFor="fileInput" className='bg-red-300 py-2 px-2 rounded-md text-center text-white font-semibold w-full'>Upload Profile Picture</label>
-                            </div>
-                    <Button type="submit" className="w-full bg-red-700">Update</Button>
+                        </div>
+                        <Button type="submit" className="w-full bg-red-700">Update</Button>
                     </div>
-                            {errors.photoFile && <p className='text-red-500 text-xs'>{errors.photoFile.message}</p>}
+                    {errors.photoFile && <p className='text-red-500 text-xs'>{errors.photoFile.message}</p>}
                 </form>
             </div>
 

@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { Outlet, useLocation } from "react-router-dom";
 
@@ -16,11 +17,11 @@ const MainLayout = () => {
             <Outlet></Outlet>
             </div>
             {/* footer */}
-            {/* {
+            {
                 isLogin || <div className="bg-slate-100">
                 <Footer></Footer>
                 </div>
-            } */}
+            }
         </div>
     );
 };

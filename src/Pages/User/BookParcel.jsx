@@ -10,6 +10,7 @@ import useAuth from "@/Hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import DashboardHeader from "@/components/ui/DashboardHeader";
 import { useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet-async";
 
 const BookParcel = () => {
     const { user } = useAuth()
@@ -22,7 +23,7 @@ const BookParcel = () => {
     const { data: users = {}, isLoading, refetch } = useQuery({
         queryKey: ['usersS', user?.email],
         queryFn: async () => {
-            const { data } = await axiosSecure.get(`http://localhost:5000/user/${user?.email}`)
+            const { data } = await axiosSecure.get(`https://swift-parcel-server-eta.vercel.app/user/${user?.email}`)
             return data
         }
     })
@@ -69,24 +70,27 @@ const BookParcel = () => {
         }
         console.table(parcel)
 
-        try{
+        try {
             const res = await axiosSecure.post('/parcel', parcel)
-            if(res.data.insertedId) {
+            if (res.data.insertedId) {
                 toast.success('Your Parcel booked successfully')
-                console.log(res.data)
+                // console.log(res.data)
                 setPrice(0)
                 reset()
                 navigate('/dashboard/myParcel')
             }
         }
-        catch(err) {
+        catch (err) {
             toast.error('Invalid data')
         }
-        
+
 
     }
     return (
         <div className="py-2 md:py-5 w-10/12 md:w-9/12 mx-auto">
+            <Helmet>
+                <title>SwiftParcel | Book Parcel</title>
+            </Helmet>
             {/* text-content */}
             <DashboardHeader title='Book Parcel'></DashboardHeader>
             <div className="mt-5">
@@ -210,7 +214,7 @@ const BookParcel = () => {
                             <Label htmlFor="latitude">Delivery Address Latitude</Label>
                             <Input type="text" {...register('latitude', {
                                 required: 'Delivery address latitude is required',
-                                
+
                             })} id="latitude" placeholder="Enter Delivery address latitude" />
                             {errors.latitude && <p className='text-red-500 text-xs'>{errors.latitude.message}</p>}
                         </div>
@@ -222,7 +226,7 @@ const BookParcel = () => {
                             <Label htmlFor="longitude">Delivery Address Longitude</Label>
                             <Input type="text" {...register('longitude', {
                                 required: 'Delivery address longitude is required',
-                                
+
                             })} id="longitude" placeholder="Enter Delivery address Longitude" />
                             {errors.longitude && <p className='text-red-500 text-xs'>{errors.longitude.message}</p>}
                         </div>

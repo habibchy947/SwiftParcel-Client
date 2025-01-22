@@ -5,6 +5,7 @@ import useAxiosSecure from '@/Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import moment from 'moment';
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { MdOutlineStarOutline, MdOutlineStarPurple500 } from 'react-icons/md';
 import Rating from 'react-rating';
 
@@ -18,7 +19,7 @@ const MyReviews = () => {
             return res.data
         }
     })
-    console.log(deliveryMen._id)
+    // console.log(deliveryMen._id)
     const { data: reviews = [], isLoading: isDeliveryLisLoading, refetch } = useQuery({
         queryKey: ['reviews', deliveryMen._id],
         queryFn: async () => {
@@ -29,12 +30,15 @@ const MyReviews = () => {
             return []
         }
     })
-    console.log(reviews)
+    // console.log(reviews)
     if (isLoading || isDeliveryLisLoading) {
         return <Loading></Loading>
     }
     return (
         <div>
+            <Helmet>
+                <title>SwiftParcel | My Reviews</title>
+            </Helmet>
             <DashboardHeader title={'My Reviews'}></DashboardHeader>
             {!reviews ?
                 <h2 className='text-2xl font-semibold text-destructive'>No reviews available</h2>

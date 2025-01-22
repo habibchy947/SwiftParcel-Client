@@ -33,25 +33,28 @@ const TableRowUserParcel = ({ idx, parcel, handleCancelParcel }) => {
     }
 
     const onSubmit = async (data) => {
-        if (data.rating > 6) {
+        if (data.rating > 6 ) {
             return toast.error('rate out of five')
         }
-
-        console.log(data)
+        if(rating <= 0 ) {
+            return toast.error('Rate this delivery men')
+        }
+        // console.log(data)
         try {
             const review = {
                 userName: user?.displayName,
                 userImage: user?.photoURL,
-                rating: rating,
+                rating: parseFloat(rating),
                 deliveryMenId: deliveryMenId,
                 feedback: data.feedback,
                 reviewGivingDate: new Date()
             }
-            console.table(review)
+            // console.table(review)
             const res = await axiosSecure.post(`/review`, review)
-            console.log(res.data)
+            // console.log(res.data)
             if (res.data.insertedId) {
                 toast.success('Review submitted successfully')
+                reset()
                 setIsActive(true)
                 closeDialog()
             }
@@ -71,11 +74,12 @@ const TableRowUserParcel = ({ idx, parcel, handleCancelParcel }) => {
                 <p className={`text-center ${status === 'cancelled' && 'text-slate-500 bg-red-50'} ${status === 'pending' && 'text-yellow-500 bg-yellow-50'} ${status === 'on the way' && 'text-pink-500 bg-pink-50'} ${status === 'delivered' && 'text-green-500 bg-green-50'} py-1 rounded-2xl`}>{status}</p>
             </TableCell>
             <TableCell className="space-x-2 py-1 whitespace-nowrap">
-                {status !== 'pending' ? <button disabled className="px-2  text-center py-1 rounded-sm bg-slate-300 ">Update</button> :
-                    <button className="px-2  text-center py-1 rounded-sm text-white bg-yellow-500"><Link to={`/dashboard/updateParcel/${_id}`}>Update</Link></button>
+                {status === 'pending' && <button className="px-2  text-center py-1 rounded-sm text-white bg-yellow-500"><Link to={`/dashboard/updateParcel/${_id}`}>Update</Link></button>
                 }
-                <button onClick={() => handleCancelParcel(_id)} disabled={status !== 'pending'} className={`px-2  text-center py-1 rounded-sm text-white bg-red-500`}>Cancel</button>
-                {status === 'delivered' &&
+                {
+                    status === 'pending' && <button onClick={() => handleCancelParcel(_id)} disabled={status !== 'pending'} className={`px-2  text-center py-1 rounded-sm text-white bg-red-500`}>Cancel</button>
+                }
+                {status === 'delivered' && 
 
                     <Dialog open={isOpen} onOpenChange={setIsOpen}>
                         <button onClick={openDialog} disabled={active} className={`px-2 py-1 rounded-sm bg-green-500 text-white`}>Review</button>

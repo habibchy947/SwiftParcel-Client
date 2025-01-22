@@ -5,6 +5,7 @@ import useAxiosSecure from '@/Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import ReactApexChart from 'react-apexcharts';
+import { Helmet } from 'react-helmet-async';
 
 const Statistics = () => {
     const axiosSecure = useAxiosSecure()
@@ -15,7 +16,7 @@ const Statistics = () => {
             return res.data
         }
     })
-    console.log(data)
+    // console.log(data)
     if (isLoading) {
         return <Loading></Loading>
     }
@@ -47,11 +48,14 @@ const Statistics = () => {
     },]
     return (
         <div>
+            <Helmet>
+                <title>SwiftParcel | Statistics</title>
+            </Helmet>
             <DashboardHeader title={'Statistics'}></DashboardHeader>
             <div className='grid grid-cols-1 md:grid-cols-2 mt-10'>
-            <ReactApexChart options={optiosForBar} series={seriesForBar} type='bar'></ReactApexChart>
-            <ReactApexChart options={optiosForLine} series={seriesForLine} type='line'></ReactApexChart>
-            
+                <ReactApexChart options={optiosForBar} series={seriesForBar} type='bar'></ReactApexChart>
+                <ReactApexChart options={optiosForLine} series={seriesForLine} type='line'></ReactApexChart>
+
             </div>
 
         </div>

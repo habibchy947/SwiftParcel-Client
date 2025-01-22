@@ -21,16 +21,16 @@ const ChekoutForm = ({ id }) => {
     const { data: parcel = {}, isLoading, refetch } = useQuery({
         queryKey: ['singleParcel', id],
         queryFn: async () => {
-            const { data } = await axiosSecure.get(`http://localhost:5000/parcel/${id}`)
+            const { data } = await axiosSecure.get(`https://swift-parcel-server-eta.vercel.app/parcel/${id}`)
             return data
         }
     })
-    console.log(parcel.price)
+    // console.log(parcel.price)
         useEffect(() => {
             if(parcel?.price){
                 axiosSecure.post('/create-payment-intent', { price: parcel.price })
                     .then(res => {
-                        console.log(res.data.clientSecret)
+                        // console.log(res.data.clientSecret)
                         setClientSecret(res.data.clientSecret)
                     })
             }
@@ -56,10 +56,10 @@ const ChekoutForm = ({ id }) => {
         })
 
         if (error) {
-            console.log('payment error', error);
+            // console.log('payment error', error);
             setError(error.message)
         } else {
-            console.log('PaymentMethod', paymentMethod);
+            // console.log('PaymentMethod', paymentMethod);
             setError('')
         }
 
@@ -74,9 +74,9 @@ const ChekoutForm = ({ id }) => {
         })
 
         if (confirmError) {
-            console.log('confirm error')
+            // console.log('confirm error')
         } else {
-            console.log("paymen intent", paymentIntent)
+            // console.log("paymen intent", paymentIntent)
             if (paymentIntent.status === 'succeeded') {
                 setTransactionId(paymentIntent.id)
                 toast.success('Payment succedded')

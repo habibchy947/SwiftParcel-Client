@@ -10,19 +10,20 @@ import GoogleSignIn from '@/components/ui/GoogleSignIn';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '@/Hooks/useAuth';
 import toast from 'react-hot-toast';
+import { Helmet } from 'react-helmet-async';
 
 const Login = () => {
-    const {signInUser, loading} = useAuth()
+    const { signInUser, loading } = useAuth()
     const location = useLocation()
     const from = location.state
     const navigate = useNavigate()
-    const { handleSubmit, register,reset, formState: { errors } } = useForm()
-    
-        const onSubmit = async (data) => {
-            console.log(data)
-            await signInUser(data.email, data.password)
+    const { handleSubmit, register, reset, formState: { errors } } = useForm()
+
+    const onSubmit = async (data) => {
+        // console.log(data)
+        await signInUser(data.email, data.password)
             .then(result => {
-                console.log(result.user)
+                // console.log(result.user)
                 toast.success('Welcome Back! You have successfully logged in. Enjoy your session.')
                 reset()
                 navigate(from || '/')
@@ -31,9 +32,12 @@ const Login = () => {
                 toast.error(err.response?.message || 'Login Failed! Invalid email or password. Please try again')
             })
 
-        }
+    }
     return (
         <div className="w-10/12 md:w-8/12  max-w-screen-xl py-10 mx-auto min-h-screen justify-center grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-2 lg:gap-5 items-center">
+            <Helmet>
+                <title>SwiftParcel | Login</title>
+            </Helmet>
             <div>
                 <img className='w-96' src={signUpImg} alt="" />
             </div>

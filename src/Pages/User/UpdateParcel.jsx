@@ -12,19 +12,20 @@ import useAuth from "@/Hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import DashboardHeader from "@/components/ui/DashboardHeader";
 import Loading from '@/components/ui/Loading';
+import { Helmet } from 'react-helmet-async';
 
 const UpdateParcel = () => {
     const { id } = useParams()
     const { user } = useAuth()
     const navigate = useNavigate()
     const { handleSubmit, register, setValue, reset, watch, formState: { errors } } = useForm()
-    
+
     // console.log(id)
     const axiosSecure = useAxiosSecure()
     const { data: parcel = {}, isLoading, refetch } = useQuery({
         queryKey: ['updateParcel', id],
         queryFn: async () => {
-            const { data } = await axiosSecure.get(`http://localhost:5000/parcel/${id}`)
+            const { data } = await axiosSecure.get(`https://swift-parcel-server-eta.vercel.app/parcel/${id}`)
             return data
         }
     })
@@ -74,7 +75,7 @@ const UpdateParcel = () => {
             const res = await axiosSecure.patch(`/parcel/${parcel._id}`, updateParcel)
             if (res.data.modifiedCount) {
                 toast.success('Your Parcel updated successfully')
-                console.log(res.data)
+                // console.log(res.data)
                 setPrice(0)
                 refetch()
                 reset()
@@ -82,14 +83,17 @@ const UpdateParcel = () => {
             }
         }
         catch (err) {
-            toast.error('Invalid data')
+            toast.error('Failed to upadate your parcel')
         }
     }
-    if(isLoading) {
+    if (isLoading) {
         return <Loading></Loading>
     }
     return (
         <div className="py-2 md:py-5 w-10/12 md:w-9/12 mx-auto">
+            <Helmet>
+                <title>SwiftParcel | Update Parcel</title>
+            </Helmet>
             {/* text-content */}
             <DashboardHeader title='Update Parcel'></DashboardHeader>
             <div className="mt-5">
@@ -238,7 +242,7 @@ const UpdateParcel = () => {
                         {/* price field */}
                         <div className='w-full mb-2 md:mb-0'>
                             <Label htmlFor="price">Price</Label>
-                            <Input  value={price || parcel.price} type="number"
+                            <Input value={price || parcel.price} type="number"
                                 {...register("price", {
                                     required: 'Price is required',
                                 })}

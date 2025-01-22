@@ -27,7 +27,7 @@ const Navbar = () => {
     //     return <Loading></Loading>
     // }
     return (
-        <div className="flex w-full  items-center md:px-14 mx-auto max-w-screen-2xl py-3 drop-shadow-md fixed border-b-4 border-l-4 border-r-4 bg-white  border-red-600">
+        <div className="flex w-full  items-center md:px-14 mx-auto max-w-screen-2xl py-3 drop-shadow-md fixed z-20 border-b-4 border-l-4 border-r-4 bg-white  border-red-600">
             <div className="flex-1">
                 <Link to='/' className="flex gap-2 font-bebasNeue  text-3xl font-semibold items-center"><img className='w-12' src={logo} alt="" /><span className='tracking-wide'>SwiftParcel</span></Link>
             </div>

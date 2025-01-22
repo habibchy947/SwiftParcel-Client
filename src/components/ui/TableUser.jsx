@@ -11,8 +11,8 @@ const TableUser = ({singleUser, handleChangeUserType}) => {
             <TableCell className="whitespace-nowrap">{totalParcel}</TableCell>
             <TableCell className="whitespace-nowrap">{totalSpentAmount}</TableCell>
             <TableCell className="whitespace-nowrap flex gap-2">
-                <Button disabled={userType === 'deliveryMen'} onClick={() =>handleChangeUserType(singleUser, 'deliveryMen')} className={`bg-red-300 ${userType === 'deliveryMen' && 'bg-slate-400'}`}>Make Delivery Men</Button>
-                <Button disabled={userType === 'admin'} onClick={() =>handleChangeUserType(singleUser, 'admin')} className={`bg-green-500 ${userType === 'admin' && 'bg-slate-400'}`}>Make Admin</Button>
+                {userType !== 'deliveryMen' && <button disabled={userType === 'deliveryMen'} onClick={() =>handleChangeUserType(singleUser, 'deliveryMen')} className={`bg-red-300 ${userType === 'deliveryMen' && 'bg-slate-400'} px-2 text-white py-2 rounded-sm`}>Make Delivery Men</button>}
+                {userType !== 'admin' && <button disabled={userType === 'admin'} onClick={() =>handleChangeUserType(singleUser, 'admin')} className={`bg-green-500 ${userType === 'admin' && 'bg-slate-400'} px-2 text-white py-2 rounded-sm`}>Make Admin</button>}
             </TableCell>
         </TableRow>
     );

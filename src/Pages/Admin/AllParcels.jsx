@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { Helmet } from 'react-helmet-async';
 
 const AllParcels = () => {
     const [role, isLoading] = useRole()
@@ -18,7 +19,7 @@ const AllParcels = () => {
     const [endDateReal, setEndDateReal] = useState('')
 
     const { data: allParcels = [], refetch, isLoading: loading } = useQuery({
-        queryKey: ['allParcel',startDateReal, endDateReal],
+        queryKey: ['allParcel', startDateReal, endDateReal],
         queryFn: async () => {
             const { data } = await axiosSecure.get(`/allParcels?dateFrom=${startDateReal}&dateTo=${endDateReal}`)
             return data
@@ -32,23 +33,18 @@ const AllParcels = () => {
         }
     })
 
-    console.log(allParcels)
-    console.log(allDeliveryMen)
+    // console.log(allParcels)
+    // console.log(allDeliveryMen)
 
     const { handleSubmit, register, setValue, reset, formState: { errors } } = useForm()
     const onSubmit = async (data) => {
         const startDate = new Date(data.dateFrom)
         const endDate = new Date(data.dateTo)
-        // if (startDate < new Date()) {
-        //     return toast.error('give a future date')
-        // }
-        // if (endDate < new Date()) {
-        //     return toast.error('give a future date')
-        // }
-        if(startDate > endDate){
+
+        if (startDate > endDate) {
             return toast.error("start date can't be greater than end date")
         }
-        console.log(data)
+        // console.log(data)
         setStartDateReal(data.dateFrom)
         setEndDateReal(data.dateTo)
         reset()
@@ -60,14 +56,17 @@ const AllParcels = () => {
     }
     return (
         <div>
+            <Helmet>
+                <title>SwiftParcel | All Parcels</title>
+            </Helmet>
             <DashboardHeader title='All Parcels'></DashboardHeader>
             <div className='w-52'>
                 <h2 className='mb-2 font-semibold'>Select Date Range</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className='flex flex-wrap md:flex-nowrap gap-2'>
                         <Input
-                        className=""
-                         type="date"
+                            className=""
+                            type="date"
                             {...register('dateFrom', {
                                 required: 'dateFrom  is required'
                             })}

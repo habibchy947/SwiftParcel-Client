@@ -11,11 +11,11 @@ const Features = () => {
             return data
         }
     })
-    console.log(features)
+    // console.log(features)
     return (
         <div className="w-11/12 mx-auto">
             <Header title={'Our Features'}></Header>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-7">
                 {
                     features.map((feature, idx) => <FeaureCard key={idx} feature={feature}></FeaureCard>)
                 }

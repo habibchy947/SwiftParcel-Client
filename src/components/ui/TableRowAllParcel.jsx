@@ -25,7 +25,7 @@ const TableRowAllParcel = ({ parcel ,refetch, allDeliveryMen}) => {
             return toast.error('give a date inside the requested deliveryDate')
         }
         
-        console.log(data)
+        // console.log(data)
         try{
             const assigned = {
                 deliveryMenId: data.deliveryMen,
@@ -51,12 +51,12 @@ const TableRowAllParcel = ({ parcel ,refetch, allDeliveryMen}) => {
             <TableCell className="whitespace-nowrap">{moment(requestedDeliveryDate).format('DD-MM-YYYY')}</TableCell>
             <TableCell className="whitespace-nowrap">{price}</TableCell>
             <TableCell className="whitespace-nowrap">
-                <p className={`text-center ${status === 'cancelled' && 'text-slate-500 bg-slate-50'} ${status === 'pending' && 'text-yellow-500 bg-yellow-50'} ${status === 'on the way' && 'text-pink-500 bg-pink-50'} ${status === 'delivered' && 'text-green-500 bg-green-50'} py-1 px-1 rounded-2xl`}>{status}</p>
+                <p className={`text-center ${status === 'cancelled' && 'text-white bg-red-400'} ${status === 'returned' && 'text-black bg-violet-200'} ${status === 'pending' && 'text-yellow-500 bg-yellow-50'} ${status === 'on the way' && 'text-pink-500 bg-pink-50'} ${status === 'delivered' && 'text-green-500 bg-green-50'} py-1 px-1 rounded-md`}>{status}</p>
             </TableCell>
             <TableCell>
 
                 <Dialog open={isOpen} onOpenChange={setIsOpen}>
-                    <Button disabled={status !== 'pending'} onClick={openDialog} className={`${status !== 'pending' ? 'bg-slate-300 text-gray-800': 'bg-green-50 text-green-500'} `}>Manage</Button>
+                    <Button disabled={status !== 'pending' && status !== 'cancelled' || status == 'returned'} onClick={openDialog} className={`${status !== 'pending' ? 'bg-slate-300 text-gray-800': 'bg-green-50 text-green-500'} `}>Manage</Button>
                     <DialogContent className="sm:max-w-[350px]">
                         <DialogHeader>
                             <DialogTitle>Manage Parcel</DialogTitle>
