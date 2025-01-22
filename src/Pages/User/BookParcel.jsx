@@ -68,7 +68,7 @@ const BookParcel = () => {
             price: parseFloat(data.price),
             status: 'pending'
         }
-        console.table(parcel)
+        // console.table(parcel)
 
         try {
             const res = await axiosSecure.post('/parcel', parcel)

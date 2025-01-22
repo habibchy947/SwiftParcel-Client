@@ -59,7 +59,7 @@ const MyDeliveryList = () => {
         });
     }
 
-    if (isLoading || isDeliveryLisLoading) {
+    if (isLoading) {
         return <Loading></Loading>
     }
     return (
