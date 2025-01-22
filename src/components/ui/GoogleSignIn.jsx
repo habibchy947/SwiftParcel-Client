@@ -27,6 +27,7 @@ const GoogleSignIn = ({ title }) => {
             axiosPublic.post('/user', userInfo)
             .then(() => {
                 // console.log(res.data)
+                toast.success('Welcome Back! You have successfully logged in. Enjoy your session.')
                 navigate('/')
             })
             .catch((err) => {

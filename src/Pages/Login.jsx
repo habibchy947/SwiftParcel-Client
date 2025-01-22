@@ -11,7 +11,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '@/Hooks/useAuth';
 import toast from 'react-hot-toast';
 import { Helmet } from 'react-helmet-async';
-
+import { TbFidgetSpinner } from "react-icons/tb";
 const Login = () => {
     const { signInUser, loading } = useAuth()
     const location = useLocation()
@@ -20,9 +20,8 @@ const Login = () => {
     const { handleSubmit, register, reset, formState: { errors } } = useForm()
 
     const onSubmit = async (data) => {
-        // console.log(data)
         await signInUser(data.email, data.password)
-            .then(result => {
+            .then(() => {
                 // console.log(result.user)
                 toast.success('Welcome Back! You have successfully logged in. Enjoy your session.')
                 reset()
@@ -75,7 +74,7 @@ const Login = () => {
                             {errors.password && <p className='text-red-500 text-xs'>{errors.password.message}</p>}
                         </div>
                     </div>
-                    <Button type="submit" className="w-full bg-red-700">Login</Button>
+                    <Button type="submit" className="w-full bg-red-700">{loading? <TbFidgetSpinner className='animate-spin'/> : 'Login'}</Button>
                 </form>
                 <p className='text-center pt-2'>New to this website? please <Link className="text-red-700" to='/signUp'>Sign Up</Link></p>
             </div>

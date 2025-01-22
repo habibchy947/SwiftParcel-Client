@@ -65,9 +65,9 @@ const MyProfile = () => {
                 className='bg-cover relative bg-no-repeat bg-center py-20 lg:py-28'
             >
 
-                <img className='w-36 h-36 md:w-44 md:h-44 object-cover lg:left-8 right-24 sm:right-44 md:right-36 lg:right-0 md:-bottom-14 rounded-full border-2 border-gray-500 absolute' src={userProfile?.image} alt="" />
+                <img className='w-36 bg-white h-36 md:w-44 md:h-44 object-cover lg:left-8 right-24 sm:right-44 md:right-36 lg:right-0 md:-bottom-14 rounded-full border-2 border-gray-500 absolute' src={userProfile?.image} alt="" />
             </div>
-            <div className="mt-16 md:p-5 p-1">
+            <div className="mt-16 md:p-5 p-3">
                 <h3 className='text-2xl font-semibold'>{userProfile.name}</h3>
                 <div className='md:flex justify-between'>
                     <p className='flex items-center gap-2 mt-2'><span><TfiEmail /></span>{userProfile.email}</p>

@@ -19,6 +19,7 @@ import useAuth from '@/Hooks/useAuth';
 import toast from 'react-hot-toast';
 import useAxiosPublic from '@/Hooks/useAxiosPublic';
 import { Helmet } from 'react-helmet-async';
+import { TbFidgetSpinner } from 'react-icons/tb';
 
 const SignUp = () => {
     const { createUser, setUser, updateUserProfile, loading } = useAuth()
@@ -175,7 +176,7 @@ const SignUp = () => {
                             placeholder="Enter a Password" />
                         {errors.password && <p className='text-red-500 text-xs'>{errors.password.message}</p>}
                     </div>
-                    <Button type="submit" className="w-full bg-red-700">Sign Up</Button>
+                    <Button type="submit" className="w-full bg-red-700">{loading? <TbFidgetSpinner className='animate-spin'/> : 'Login'}</Button>
                 </form>
                 <p className='text-center pt-2'>Already have an account? please <Link className='text-red-700' to='/login'>Login</Link></p>
             </div>
