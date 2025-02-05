@@ -1,9 +1,9 @@
-# Parcel Management System - MERN Stack  
+# SwiftParcel
 
-## 📌 Introduction  
-The **Parcel Management System** is a **MERN stack**-based web application that allows users to book parcels, admins to manage deliveries, and delivery personnel to track and deliver parcels. This system provides a **secure, responsive, and feature-rich** experience with user authentication, real-time updates, and advanced search functionalities.
+The **SwiftParcel** is a **MERN stack**-based web application that allows users to book parcels, admins to manage deliveries, and delivery personnel to track and deliver parcels. This system provides a **secure, responsive, and feature-rich** experience with user authentication, real-time updates, and advanced search functionalities.
 
 ---
+![Parcel-delivery](https://github.com/user-attachments/assets/18d64dda-3d97-4e6d-aedb-d116403e4158)
 
 ## 📑 Table of Contents  
 - [🚀 Features](#-features)  
@@ -53,8 +53,8 @@ The **Parcel Management System** is a **MERN stack**-based web application that 
 
 ### 1️⃣ Clone the Repository  
 ```sh
-git clone https://github.com/your-repo/parcel-management-system.git
-cd parcel-management-system
+git clone https://github.com/habibchy947/SwiftParcel-Client.git
+cd swiftParcel-client
 ```
 
 ### 2️⃣ Install Dependencies  
@@ -170,13 +170,13 @@ npm start
 
 | Method | Endpoint | Description |
 |--------|---------|-------------|
-| `POST` | `/api/auth/register` | Register a new user |
-| `POST` | `/api/auth/login` | Authenticate user |
-| `GET` | `/api/parcels` | Get all parcels |
-| `POST` | `/api/parcels/book` | Book a new parcel |
-| `PATCH` | `/api/parcels/update/:id` | Update parcel info |
-| `DELETE` | `/api/parcels/cancel/:id` | Cancel a parcel |
-| `POST` | `/api/payments/checkout` | Process Stripe payment |
+| `POST` | `/api/user` | Register a new user |
+| `POST` | `/api/jwt` | Authenticate user |
+| `GET` | `/api/allParcels` | Get all parcels |
+| `POST` | `/api/parcel` | Book a new parcel |
+| `PATCH` | `/api/parcel/:id` | Update parcel info |
+| `DELETE` | `/api/parcel/returned/:id` | Cancel a parcel |
+| `POST` | `/api/create-payment-intent` | Process Stripe payment |
 
 ---
 
@@ -221,8 +221,8 @@ This project is licensed under the **MIT License**.
 
 ### 🌐 Live Demo: [Click Here](#)  
 ### 👤 Admin Login:  
-**Username:** `admin@example.com`  
-**Password:** `admin123`  
+**Username:** `Habib`  
+**Password:** `342481Habib@`  
 
 ---
 
