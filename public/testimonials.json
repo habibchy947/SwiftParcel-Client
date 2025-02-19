@@ -1,0 +1,37 @@
+[
+    {
+      "name": "Alice Johnson",
+      "role": "Frequent Shipper",
+      "image": "https://i.ibb.co.com/XfNb0L6P/customer-1.jpg",
+      "rating": 5,
+      "review": "Super fast delivery and excellent customer service! Highly recommend"
+    },
+    {
+      "name": "Michael Smith",
+      "role": "Business Owner",
+      "image": "https://i.ibb.co.com/5Xp39cmm/customer-2.jpg",
+      "rating": 4,
+      "review": "Great experience! My package arrived on time without any hassle."
+    },
+    {
+      "name": "Emma Brown",
+      "role": "Online Seller",
+      "image": "https://i.ibb.co.com/3YPmQD5g/customer-3.jpg",
+      "rating": 5,
+      "review": "Reliable service! My shipments always reach their destination safely."
+    },
+    {
+      "name": "James Wilson",
+      "role": "Regular Customer",
+      "image": "https://i.ibb.co.com/JwXLdfs6/customer-4.jpg",
+      "rating": 4.5,
+      "review": "Very convenient tracking system. Would definitely use it again!"
+    },
+    {
+      "name": "Anderson Willey",
+      "role": "Finance Specialist",
+      "image": "https://i.ibb.co.com/JR0jp9VH/customer-5.jpg",
+      "rating": 4.8,
+      "review": "Highly convenient tracking system. I would absolutely use it again"
+    }
+  ]
