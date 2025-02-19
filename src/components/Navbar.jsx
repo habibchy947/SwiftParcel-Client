@@ -47,54 +47,11 @@ const Navbar = () => {
     themeCheck()
 
     const links = <>
-        <li><NavLink className={({ isActive }) => `text-lg ${isActive && 'text-red-600 font-bold'}`} to='/'>Home</NavLink></li>
-        <li><NavLink className={({ isActive }) => `text-lg ${isActive && 'text-red-600 font-bold'}`} to='/support'>Contact</NavLink></li>
-        <li><NavLink className={({ isActive }) => `text-lg ${isActive && 'text-red-600 font-bold'}`} to='/team'>Team</NavLink></li>
+        <NavLink className={({ isActive }) => ` px-3 text-lg ${isActive && 'text-red-600 font-bold'}`} to='/'>Home</NavLink>
+        <NavLink className={({ isActive }) => ` px-3 text-lg ${isActive && 'text-red-600 font-bold'}`} to='/support'>Contact</NavLink>
+        <NavLink className={({ isActive }) => ` px-3 text-lg ${isActive && 'text-red-600 font-bold'}`} to='/team'>Team</NavLink>
     </>
     return (
-        // <div className="flex w-full  items-center px-3 md:px-14 mx-auto max-w-screen-2xl py-3 drop-shadow-md fixed z-20 border-b-4 border-l-4 border-r-4 bg-white  border-red-600">
-        //     <div className="flex-1">
-        //         <Link to='/' className="flex gap-2 font-bebasNeue  text-3xl font-semibold items-center"><img className='w-12' src={logo} alt="" /><span className='tracking-wide'>SwiftParcel</span></Link>
-        //     </div>
-        //     <div className="flex items-center gap-3">
-        //         <li className='list-none font-medium text-lg'><NavLink className={({ isActive }) => `${isActive && 'text-red-600 underline'}`} to='/'>Home</NavLink></li>
-        //         <button className="border-2 p-1 text-2xl rounded-full">
-        //             <IoMdNotificationsOutline />
-        //         </button>
-        //         {
-        //             user && user?.email ?
-        //                 <>
-        //                     <div>
-        //                         <DropdownMenu>
-        //                             <DropdownMenuTrigger asChild>
-        //                                     <img className="object-cover h-10 w-10 rounded-full" referrer-policy="no-referrer" src={user?.photoURL} alt="user-profile" />
-        //                             </DropdownMenuTrigger>
-        //                             <DropdownMenuContent className="w-44 mr-5 md:mr-14">
-        //                                 <DropdownMenuLabel className="flex justify-between">{user?.displayName}<FaRegUser /></DropdownMenuLabel>
-        //                                 <DropdownMenuSeparator />
-        //                                 <DropdownMenuGroup>
-        //                                     <DropdownMenuItem>
-        //                                         {user && role === 'user' && <Link to='/dashboard/myParcel'>Dashboard</Link>}
-        //                                         {user && role === 'deliveryMen' && <Link to='/dashboard/myDeliveryList'>Dashboard</Link>}
-        //                                         {user && role === 'admin' && <Link to='/dashboard/statistics'>Dashboard</Link>}
-        //                                         <DropdownMenuShortcut><MdOutlineDashboard /></DropdownMenuShortcut>
-        //                                     </DropdownMenuItem>
-        //                                     <DropdownMenuItem onClick={logOut}>
-        //                                         Logout
-        //                                         <DropdownMenuShortcut><IoLogOutOutline /></DropdownMenuShortcut>
-        //                                     </DropdownMenuItem>
-        //                                 </DropdownMenuGroup>
-        //                             </DropdownMenuContent>
-        //                         </DropdownMenu>
-        //                     </div>
-        //                 </>
-        //                 :
-        //                 <>
-        //                     <Button className='bg-red-600 font-semibold border-none '><Link to='/login'>Login</Link></Button>
-        //                 </>
-        //         }
-        //     </div>
-        // </div>
         <div className="navbar w-full px-3 md:px-14 mx-auto max-w-screen-2xl py-3 drop-shadow-md fixed z-20 border-b-4 border-l-4 border-r-4 bg-white dark:bg-neutral  border-red-600 ">
             <div className="navbar-start">
                 <div className="dropdown">
@@ -114,14 +71,14 @@ const Navbar = () => {
                     </div>
                     <ul
                         tabIndex={0}
-                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                        className="menu menu-sm dropdown-content bg-base-100 dark:bg-neutral rounded-md z-[1] mt-3 w-52 p-2 shadow">
                         {links}
                     </ul>
                 </div>
                 <Link to='/' className="flex gap-2 font-bebasNeue  text-3xl font-semibold items-center"><img className='w-12' src={logo} alt="" /><span className='tracking-wide'>SwiftParcel</span></Link>
             </div>
             <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal px-1">
+                <ul className="menu menu-horizontal px-1 gap-4">
                     {links}
                 </ul>
             </div>
