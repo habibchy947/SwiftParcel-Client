@@ -55,7 +55,6 @@ const Statistics = () => {
             <div className='grid grid-cols-1 md:grid-cols-2 mt-10'>
                 <ReactApexChart options={optiosForBar} series={seriesForBar} type='bar'></ReactApexChart>
                 <ReactApexChart options={optiosForLine} series={seriesForLine} type='line'></ReactApexChart>
-
             </div>
 
         </div>

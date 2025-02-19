@@ -6,10 +6,10 @@ const MainLayout = () => {
     const {pathname} = useLocation()
     const isLogin = pathname.includes('/login') || pathname.includes('/signUp')
     return (
-        <div className="font-Lato">
+        <div className="font-Lato max-w-screen-2xl mx-auto">
             {/* navbar */}
             {
-                isLogin || <div className="max-w-screen-2xl mx-auto">
+                isLogin || <div>
                 <Navbar></Navbar>
                 </div>
             }

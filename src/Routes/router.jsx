@@ -20,6 +20,7 @@ import AllUsers from "@/Pages/Admin/AllUsers";
 import AllParcels from "@/Pages/Admin/AllParcels";
 import AllDeliveryMen from "@/Pages/Admin/AllDeliveryMen";
 import MyReviews from "@/Pages/DeliveryMen/MyReviews";
+import Support from "@/Pages/Support";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: 'login',
         element: <Login></Login>
+      },
+      {
+        path: '/support',
+        element: <Support/>
       }
     ]
   },
