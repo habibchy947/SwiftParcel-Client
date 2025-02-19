@@ -1,0 +1,42 @@
+[
+    {
+        "name": "John Doe",
+        "role": "IT Technician",
+        "image": "https://i.ibb.co.com/ym6ZjWFx/team1.jpg"
+      },
+      {
+        "name": "Mark Hustler",
+        "role": "Tracking Dept",
+        "image": "https://i.ibb.co.com/KpK16ZQ0/team2.jpg"
+      },
+      {
+        "name": "Tim Patinson",
+        "role": "Cargo Supervisor",
+        "image": "https://i.ibb.co.com/Hft7zFfv/team3.jpg"
+      },
+      {
+        "name": "Jina Patinson",
+        "role": "Shipping Manager",
+        "image": "https://i.ibb.co.com/GvZgN3hr/team4.jpg"
+      },
+    {
+        "name": "John Doe",
+        "role": "IT Technician",
+        "image": "https://i.ibb.co.com/qMrzCLRF/team5.jpg"
+      },
+      {
+        "name": "Mark Hustler",
+        "role": "Tracking Dept",
+        "image": "https://i.ibb.co.com/JF8KKf7F/team6.jpg"
+      },
+      {
+        "name": "Tim Patinson",
+        "role": "Cargo Supervisor",
+        "image": "https://i.ibb.co.com/FLsGYXzy/team7.jpg"
+      },
+      {
+        "name": "Jina Patinson",
+        "role": "Shipping Manager",
+        "image": "https://i.ibb.co.com/BKKFgG2N/team8.jpg"
+      }
+  ]

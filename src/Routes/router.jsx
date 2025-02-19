@@ -21,6 +21,7 @@ import AllParcels from "@/Pages/Admin/AllParcels";
 import AllDeliveryMen from "@/Pages/Admin/AllDeliveryMen";
 import MyReviews from "@/Pages/DeliveryMen/MyReviews";
 import Support from "@/Pages/Support";
+import TeamMembers from "@/Pages/TeamMembers";
 
 const router = createBrowserRouter([
   {
@@ -43,7 +44,11 @@ const router = createBrowserRouter([
       {
         path: '/support',
         element: <Support/>
-      }
+      },
+      {
+        path: '/team',
+        element: <TeamMembers/>
+      },
     ]
   },
   // dashboard
