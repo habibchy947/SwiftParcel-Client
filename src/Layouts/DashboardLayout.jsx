@@ -64,12 +64,12 @@ const DashboardLayout = () => {
             {/* main contsan */}
             <div className={`flex-1 p-3 transition-transform duration-300 lg:ml-60 ${sidebarOpen ? 'lg:ml-64' : ''}`}>
                     <button onClick={toggleDrawer}
-                        className="p-2 text-black text-lg rounded-md lg:hidden"
+                        className="p-2 text-black dark:text-white text-lg font-bold rounded-md lg:hidden"
                     >
                         <GoSidebarExpand />
                     </button>
                     {/* main page content */}
-                    <div className=" lg:mt-0">
+                    <div className=" lg:mt-0 min-h-screen">
                         <Outlet></Outlet>
                     </div>
             </div>

@@ -5,7 +5,9 @@ import LatestBlog from "@/components/LatestBlog";
 import ParcelManagementSteps from "@/components/ParcelManagementSteps";
 import Testimonials from "@/components/Testimonials";
 import TopDeliveryExpert from "@/components/TopDeliveryExpert";
+import TrustedOrganization from "@/components/NewsLetter";
 import { Helmet } from "react-helmet-async";
+import NewsLetter from "@/components/NewsLetter";
 
 const Home = () => {
     return (
@@ -20,6 +22,7 @@ const Home = () => {
             <LatestBlog></LatestBlog>
             <TopDeliveryExpert></TopDeliveryExpert>
             <Testimonials></Testimonials>
+            <NewsLetter></NewsLetter>
         </div>
     );
 };

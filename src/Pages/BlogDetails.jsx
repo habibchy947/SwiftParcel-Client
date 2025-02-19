@@ -13,7 +13,6 @@ const BlogDetails = () => {
             return singleBlog
         }
     })
-    console.log(blog)
     return (
         <div className='mx-auto pt-20 bg-white'>
             <img src={blog.image} alt="" className='h-[400px] w-full object-cover' />

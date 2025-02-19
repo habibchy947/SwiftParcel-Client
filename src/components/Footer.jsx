@@ -4,7 +4,7 @@ import { Input } from './ui/input';
 import { Button } from './ui/button';
 const Footer = () => {
     return (
-        <footer className=" dark:bg-gray-900 mt-16">
+        <footer className=" dark:bg-gray-900">
             <div className="mx-auto w-11/12 py-6 lg:py-8">
                 <div className="md:flex">
                     <div className="mb-6 md:mb-0 w-3/4 md:w-1/4">

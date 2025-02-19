@@ -54,43 +54,53 @@ const MyProfile = () => {
         return <Loading></Loading>
     }
     return (
-        <div className='w-11/12 md:w-6/12 mx-auto border rounded-md'>
+        <div className='border rounded-md '>
             <Helmet>
                 <title>SwiftParcel | Profile</title>
             </Helmet>
-            <div
-                style={{
-                    backgroundImage: `url(${profileBg})`,
-                }}
-                className='bg-cover relative bg-no-repeat bg-center py-20 lg:py-28'
-            >
-
-                <img className='w-36 bg-white h-36 md:w-44 md:h-44 object-cover lg:left-8 right-24 sm:right-44 md:right-36 lg:right-0 md:-bottom-14 rounded-full border-2 border-gray-500 absolute' src={userProfile?.image} alt="" />
-            </div>
-            <div className="mt-16 md:p-5 p-3">
-                <h3 className='text-2xl font-semibold'>{userProfile.name}</h3>
-                <div className='md:flex justify-between'>
-                    <p className='flex items-center gap-2 mt-2'><span><TfiEmail /></span>{userProfile.email}</p>
-                    <p className='flex items-center gap-2 mt-3'><span><MdMergeType /></span><span className='bg-slate-100 px-2 py-1 rounded-md'>{userProfile.userType}</span></p>
+            <div className=" mx-auto p-5  rounded-xl shadow-xl">
+                <div className="flex items-center space-x-6">
+                    <img
+                        src={userProfile.image}
+                        alt="Profile"
+                        className="w-32 h-32 rounded-full border-4 border-red-500"
+                    />
+                    <div>
+                        <h1 className="text-4xl font-semibold dark:text-white text-gray-800">{userProfile.name}</h1>
+                        <p className="text-lg text-gray-600 dark:text-white">{userProfile.userType}</p>
+                        <p className="text-md text-gray-500 dark:text-gray-300 mt-2">Located in Bangladesh</p>
+                    </div>
                 </div>
-                <p className='flex items-center gap-2 mt-3'><span><FaPhone /></span>{userProfile.phone}</p>
-                {/* form*/}
 
+                <div className="mt-8">
+                    <h2 className="text-2xl font-semibold dark:text-gray-200 text-gray-800">Contact Information</h2>
+                    <ul className="mt-4 space-y-4">
+                        <li className="flex items-center dark:text-gray-300 text-gray-600">
+                            <span className="font-semibold dark:text-gray-300 text-gray-800 w-28">Email:</span>
+                            <a href={`mailto:${userProfile.email}`} className="text-blue-500 hover:underline">
+                                {userProfile.email}
+                            </a>
+                        </li>
+                        <li className="flex items-center text-gray-600">
+                            <span className="font-semibold dark:text-gray-300 text-gray-800 w-28">Phone:</span>
+                            <span className="text-gray-700 dark:text-gray-400">{userProfile.phone}</span>
+                        </li>
+                    </ul>
+                </div>
                 <form onSubmit={handleSubmit(onSubmit)} className="mx-auto pt-5">
-                    <div className='md:flex items-center gap-3 space-y-2 md:space-y-0 mb-3'>
-                        {/* picture */}
+                    <div className='md:w-4/12 w-8/12 space-y-2 md:space-y-2 mb-3'>
+
                         <div className="w-full flex items-center gap-1.5">
                             <input name='image' placeholder='Upload' id="fileInput" hidden
                                 {...register('photoFile', { required: 'Please upload a photo' })}
                                 type="file" accept='image/*' />
                             <label htmlFor="fileInput" className='bg-red-300 py-2 px-2 rounded-md text-center text-white font-semibold w-full'>Upload Profile Picture</label>
                         </div>
-                        <Button type="submit" className="w-full bg-red-700">Update</Button>
+                        <Button type="submit" className="w-full dark:text-white bg-red-700">Update</Button>
                     </div>
-                    {errors.photoFile && <p className='text-red-500 text-xs'>{errors.photoFile.message}</p>}
+                    {errors.photoFile && <p className='text-red-500 dark:text-white text-xs'>{errors.photoFile.message}</p>}
                 </form>
             </div>
-
         </div>
     );
 };

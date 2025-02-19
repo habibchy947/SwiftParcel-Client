@@ -31,7 +31,7 @@ export default function Support() {
           toast.success("Support request submitted successfully!");
       };
     return (
-        <div className="">
+        <div className=" mb-10">
             <div className="w-11/12 mx-auto pt-28 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-4 items-center">
                 <div className="">
                     <div>
