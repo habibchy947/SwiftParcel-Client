@@ -1,54 +1,61 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { toast } from "react-hot-toast";
-
+import Lottie from "lottie-react";
+import locationIcon from '@/assets/location.json'
+import phoneIcon from '@/assets/phone.json'
+import mailIcon from '@/assets/mail.json'
+import faq from '@/assets/faq.json'
+import emailjs from '@emailjs/browser';
 export default function Support() {
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        orderId: "",
-        message: "",
-    });
-
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
-    const handleSubmit = (e) => {
+    const form = useRef();
+    const sendEmail = (e) => {
         e.preventDefault();
-        toast.success("Support request submitted successfully!");
-        setFormData({ name: "", email: "", orderId: "", message: "" });
-    };
-
+    
+        emailjs
+          .sendForm('service_k4fms09', 'template_3d3yrou', form.current, {
+            publicKey: '_3N_IId1uTjh9gK1F',
+          })
+          .then(
+            () => {
+              console.log('SUCCESS!');
+            },
+            (error) => {
+              console.log('FAILED...', error.text);
+            },
+          );
+          toast.success("Support request submitted successfully!");
+      };
     return (
         <div className="">
-            <div className="w-11/12 mx-auto pt-28 grid grid-cols-1 md:grid-cols-2 items-center gap-4">
+            <div className="w-11/12 mx-auto pt-28 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-4 items-center">
                 <div className="">
                     <div>
+                        <h1 className="text-2xl font-semibold mb-8">Contact Info</h1>
                         <div className='flex flex-col space-y-4 justify-start md:justify-start items-start md:items-start'>
                             <div className='flex items-start'>
                                 <Lottie className='h-16 w-16' animationData={locationIcon} loop={true}></Lottie>
                                 <div>
                                     <h2 className='text-xl font-semibold text-orange-400'>Address</h2>
-                                    <span className='text-white'>444, Halisohor, Katalqong Abashik</span>
+                                    <span className='dark:text-white'>444, Halisohor, Katalqong Abashik</span>
                                 </div>
                             </div>
                             <div className='flex items-start'>
                                 <Lottie className='h-12 w-16' animationData={phoneIcon} loop={true}></Lottie>
                                 <div>
                                     <h2 className='text-xl font-semibold text-orange-400'>Phone</h2>
-                                    <span className='text-white'>01613516358, 01810278085</span>
+                                    <span className='dark:text-white'>01613516358, 01810278085</span>
                                 </div>
                             </div>
                             <div className='flex items-start'>
                                 <Lottie className='h-12 w-16' animationData={mailIcon} loop={true}></Lottie>
                                 <div>
                                     <h2 className='text-xl font-semibold text-orange-400'>Address</h2>
-                                    <span className='text-white'>habib2005@gmail.com</span>
+                                    <span className='dark:text-white'>habib2005@gmail.com</span>
                                 </div>
                             </div>
 
@@ -60,18 +67,18 @@ export default function Support() {
                         <CardTitle>Contact Support</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <form onSubmit={handleSubmit} className="space-y-4">
-                            <Input placeholder="Your Name" name="name" value={formData.name} onChange={handleChange} required />
-                            <Input type="email" placeholder="Your Email" name="email" value={formData.email} onChange={handleChange} required />
-                            <Input placeholder="Order ID (Optional)" name="orderId" value={formData.orderId} onChange={handleChange} />
-                            <Textarea placeholder="Your Message" name="message" value={formData.message} onChange={handleChange} required />
+                        <form ref={form} onSubmit={sendEmail} className="space-y-4">
+                            <Input placeholder="Your Name" name="from_name"  required />
+                            <Input type="email" placeholder="Your Email" name="from_email"  required />
+                            <Input placeholder="Order ID (Optional)" name="orderId"  />
+                            <Textarea placeholder="Your Message" name="message" required />
                             <Button type="submit" className="w-full bg-red-500 text-lg font-bold dark:text-white">Submit</Button>
                         </form>
                     </CardContent>
                 </Card>
             </div>
-            <div className="">
-                <Card>
+            <div className="flex flex-col-reverse gap-12 md:gap-0 md:flex-row w-11/12 mx-auto pt-16">
+                <Card className="flex-1">
                     <CardHeader>
                         <CardTitle>Frequently Asked Questions</CardTitle>
                     </CardHeader>
@@ -110,6 +117,9 @@ export default function Support() {
                         </Accordion>
                     </CardContent>
                 </Card>
+                <div className="flex-1 flex justify-center items-center">
+                    <Lottie className="w-96" animationData={faq} loop={true}></Lottie>
+                </div>
             </div>
         </div>
     );
