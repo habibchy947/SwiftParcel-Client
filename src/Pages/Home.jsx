@@ -1,6 +1,7 @@
 import App_Stats from "@/components/App_Stats";
 import Banner from "@/components/Banner";
 import Features from "@/components/Features";
+import LatestBlog from "@/components/LatestBlog";
 import ParcelManagementSteps from "@/components/ParcelManagementSteps";
 import Testimonials from "@/components/Testimonials";
 import TopDeliveryExpert from "@/components/TopDeliveryExpert";
@@ -16,6 +17,7 @@ const Home = () => {
             <ParcelManagementSteps></ParcelManagementSteps>
             <Features></Features>
             <App_Stats></App_Stats>
+            <LatestBlog></LatestBlog>
             <TopDeliveryExpert></TopDeliveryExpert>
             <Testimonials></Testimonials>
         </div>

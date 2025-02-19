@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "title": "How to Package Fragile Items for Safe Delivery",
+        "description": "To ship fragile items safely, use protective materials like bubble wrap, foam, and packing peanuts to cushion the item. Choose a box that fits snugly, leaving at least two inches of padding on all sides. Wrap each item individually, ensuring all edges and corners are covered. Fill any empty space in the box with extra cushioning to prevent movement. Seal the box securely with strong packing tape and label it as Fragile to ensure careful handling. For valuable items, consider shipping insurance for added security. A reliable carrier with tracking ensures peace of mind.",
+        "image": "https://i.ibb.co.com/MDD5rFPL/bolg-1.jpg",
+        "date": "12/1/2025"
+    },
+    {
+        "id": 2,
+        "title": "Best Payment Methods for International Shipping",
+        "description": "When shipping internationally, there are several payment methods to consider. Credit and debit cards are widely accepted by major carriers like UPS, FedEx, and DHL, offering fast and secure transactions. PayPal is also a popular option, especially for smaller shipments, as it provides fraud protection and currency conversion. Bank transfers are a reliable choice for larger shipments but may have high fees and take longer to process. Cash on Delivery (COD) allows the recipient to pay upon delivery, making it ideal for regions with limited card usage. Cryptocurrency is an emerging option for tech-savvy shippers, providing secure, fast payments. Escrow services offer extra security for high-value shipments, ensuring payment is only released once the goods are confirmed as received.",
+        "image": "https://i.ibb.co.com/JMdKm9z/blog-2.jpg",
+        "date": "2/1/2025"
+    },
+    {
+        "id": 3,
+        "title": "Eco-Friendly Parcel Delivery: How We Reduce Carbon Footprint",
+        "description": "We are committed to reducing our carbon footprint by implementing several eco-friendly parcel delivery practices. First, we optimize delivery routes using advanced technology, reducing fuel consumption and emissions. We also use green packaging materials like recyclable and biodegradable options to minimize waste. Additionally, our fleet includes electric vehicles (EVs) that lower emissions, especially in urban areas. By partnering with local carriers, we reduce long-haul shipments, further decreasing emissions. We also invest in carbon offset programs, supporting renewable energy and reforestation. Through these initiatives, we aim to make our delivery process more sustainable and environmentally friendly.",
+        "image": "https://i.ibb.co.com/67m8bwhN/blog-3.jpg",
+        "date": "12/12/2024"
+    }
+]

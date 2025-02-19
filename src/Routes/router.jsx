@@ -22,6 +22,7 @@ import AllDeliveryMen from "@/Pages/Admin/AllDeliveryMen";
 import MyReviews from "@/Pages/DeliveryMen/MyReviews";
 import Support from "@/Pages/Support";
 import TeamMembers from "@/Pages/TeamMembers";
+import BlogDetails from "@/Pages/BlogDetails";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: '/team',
         element: <TeamMembers/>
+      },
+      {
+        path: '/blog/:id',
+        element: <BlogDetails/>,
       },
     ]
   },
